@@ -104,7 +104,8 @@ app {
     border-right: 1px solid #ddd;
     float: left;
     flex-direction: column;
-    padding: 50px 0px 100px;
+    padding-top: 50px;
+    height: 540px;
 }
 
 .nav-tabs-vertical .nav-item.show .nav-link, .nav-tabs-vertical .nav-link.active {
