@@ -7,29 +7,122 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <div>
-<ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
-    </li>
-</ul>
+    <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Informace</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#guests" role="tab">Hosté</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#gifts" role="tab">Dary</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#itinerary" role="tab">Itinerář</a>
+        </li>
+    </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane active" id="home" role="tabpanel">content 1</div>
-    <div class="tab-pane" id="profile" role="tabpanel">content 2</div>
-    <div class="tab-pane" id="messages" role="tabpanel">content 3</div>
-    <div class="tab-pane" id="settings" role="tabpanel">content 4</div>
-</div>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="info" role="tabpanel">
+
+            <div style="height:170px;">
+                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#weddings_info" role="tab">Mé svatby</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#host_info" role="tab">Hostem</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="height: inherit;
+        display: flex;
+        align-items: center;
+        padding-left: 40px;">
+                    <div class="tab-pane active" id="weddings_info" role="tabpanel">content 1</div>
+                    <div class="tab-pane" id="host_info" role="tabpanel">content 2</div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="tab-pane" id="guests" role="tabpanel">
+            <div style="height:170px;">
+                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#weddings_guests" role="tab">Mé svatby</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#host_guests" role="tab">Hostem</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="height: inherit;
+        display: flex;
+        align-items: center;
+        padding-left: 40px;">
+                    <div class="tab-pane active" id="weddings_guests" role="tabpanel">content 3</div>
+                    <div class="tab-pane" id="host_guests" role="tabpanel">content 4</div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="tab-pane" id="gifts" role="tabpanel">
+            <div style="height:170px;">
+                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#weddings_gifts" role="tab">Mé svatby</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#host_gifts" role="tab">Hostem</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="height: inherit;
+        display: flex;
+        align-items: center;
+        padding-left: 40px;">
+                    <div class="tab-pane active" id="weddings_gifts" role="tabpanel">content 5</div>
+                    <div class="tab-pane" id="host_gifts" role="tabpanel">content 6</div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="tab-pane" id="itinerary" role="tabpanel">
+            <div style="height:170px;">
+                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#weddings_itinerary" role="tab">Mé svatby</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#host_itinerary" role="tab">Hostem</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" style="height: inherit;
+        display: flex;
+        align-items: center;
+        padding-left: 40px;">
+                    <div class="tab-pane active" id="weddings_itinerary" role="tabpanel">content 7</div>
+                    <div class="tab-pane" id="host_itinerary" role="tabpanel">content 8</div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
+</div>
+
+
+
 
 
 @code { private int currentCount = 0;
