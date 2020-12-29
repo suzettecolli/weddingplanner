@@ -1,0 +1,40 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<div>
+<ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel">content 1</div>
+    <div class="tab-pane" id="profile" role="tabpanel">content 2</div>
+    <div class="tab-pane" id="messages" role="tabpanel">content 3</div>
+    <div class="tab-pane" id="settings" role="tabpanel">content 4</div>
+</div>
+    </div>
+
+
+@code { private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    } }
