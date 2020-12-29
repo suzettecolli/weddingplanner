@@ -20,6 +20,26 @@ app {
     flex-direction: column;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
 .top-row {
     height: 3.5rem;
     display: flex;
@@ -108,8 +128,80 @@ app {
     height: 540px;
 }
 
+.tab_style {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    border-color: #fff #ddd #ddd #fff;
+}
+
+.form_host {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 50px;
+    margin-bottom: 50px;
+}
+
+.form_host_inner {
+    flex-direction: column;
+    display: flex;
+    align-items: flex-end;
+}
+.form_sign {
+    background-color: cornflowerblue;
+    width: max-content;
+    padding: 5px 16px;
+    border-radius: 6px;
+    margin: -35px 0px 0px -10px;
+    color: white;
+}
+
+.button {
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 16px;
+}
+
+.label_for_time {
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+.wedding_form {
+    display: flex;
+    flex-direction:column;
+    margin: 0px 0px 7px 60px;
+}
+
+.wedding_form_outer {
+    overflow-y: scroll;
+    height: inherit;
+    width: -webkit-fill-available;
+    padding: 5% 20%;
+}
+
+.wedding_form label {
+    margin-bottom:0px;
+}
+
+.sign_wedding_form {
+    margin: 30px 0px 5px;
+}
+
+.submit_outer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
 .nav-tabs-vertical .nav-item.show .nav-link, .nav-tabs-vertical .nav-link.active {
-        border-color: #ddd #fff #ddd #ddd;
+    border-color: #ddd #fff #ddd #ddd;
 }
 
 .nav-tabs-vertical .nav-link {

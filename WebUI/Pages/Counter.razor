@@ -32,11 +32,325 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content" style="height: inherit;
-        display: flex;
-        align-items: center;
-        padding-left: 40px;">
-                    <div class="tab-pane active" id="weddings_info" role="tabpanel">content 1</div>
+                <div class="tab-content tab_style">
+                    <div class="tab-pane active wedding_form_outer" id="weddings_info" role="tabpanel">
+                        <form method="post">
+                            <fieldset>
+                                <div class="wedding_form" style="margin-left:0px;">
+                                    <label for="wedding_name">Název svatby:</label>
+                                    <input type="text" name="wedding_name" value="" />
+                                </div>
+                                <div class="wedding_form" style="margin-left:0px;">
+                                    <label for="bride_name">Jméno a příjmení nevěsty:</label>
+                                    <input type="text" name="bride_name" value="" />
+                                </div>
+                                <div class="wedding_form" style="margin-left:0px;">
+                                    <label for="grooms_name">Jméno a příjmení ženicha:</label>
+                                    <input type="text" name="grooms_name" value="" />
+                                </div>
+                                <div class="sign_wedding_form">Adresa obřadu</div>
+                                <div class="wedding_form">
+                                    <label for="ceremony_city">Město:</label>
+                                    <input type="text" name="ceremony_city" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="ceremony_street">Ulice:</label>
+                                    <input type="text" name="ceremony_street" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="ceremony_number">Číslo popisné:</label>
+                                    <input type="text" name="ceremony_number" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="ceremony_postcode">PSČ:</label>
+                                    <input type="text" name="ceremony_postcode" value="" />
+                                </div>
+                                <div class="sign_wedding_form">Adresa oslavy</div>
+                                <div class="wedding_form">
+                                    <label for="celebration_city">Město:</label>
+                                    <input type="text" name="celebration_city" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="celebration_street">Ulice:</label>
+                                    <input type="text" name="celebration_street" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="celebration_number">Číslo popisné:</label>
+                                    <input type="text" name="celebration_number" value="" />
+                                </div>
+                                <div class="wedding_form">
+                                    <label for="celebration_postcode">PSČ:</label>
+                                    <input type="text" name="celebration_postcode" value="" />
+                                </div>
+                                <div class="sign_wedding_form">Datum a čas obřadu</div>
+                                <div style="        display: flex;
+        margin: 0px 0px 7px 60px;
+">
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="ceremony_day" class="label_for_time">Den</label>
+                                        <select class="form-control" id="ceremony_day">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                            <option>16</option>
+                                            <option>17</option>
+                                            <option>18</option>
+                                            <option>19</option>
+                                            <option>20</option>
+                                            <option>21</option>
+                                            <option>22</option>
+                                            <option>23</option>
+                                            <option>24</option>
+                                            <option>25</option>
+                                            <option>26</option>
+                                            <option>27</option>
+                                            <option>28</option>
+                                            <option>29</option>
+                                            <option>30</option>
+                                            <option>31</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 130px;
+        padding: 0px 5px;
+">
+                                        <label for="ceremony_month" class="label_for_time">Měsíc</label>
+                                        <select class="form-control" id="ceremony_month">
+                                            <option>Leden</option>
+                                            <option>Únor</option>
+                                            <option>Březen</option>
+                                            <option>Duben</option>
+                                            <option>Květen</option>
+                                            <option>Červen</option>
+                                            <option>Červenec</option>
+                                            <option>Srpen</option>
+                                            <option>Září</option>
+                                            <option>Říjen</option>
+                                            <option>Listopad</option>
+                                            <option>Prosinec</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 100px;
+        padding: 0px 5px;
+">
+                                        <label for="ceremony_year" class="label_for_time">Rok</label>
+                                        <select class="form-control" id="ceremony_year">
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                            <option>2028</option>
+                                            <option>2029</option>
+                                            <option>2030</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="ceremony_hour" class="label_for_time">Hodina</label>
+                                        <select class="form-control" id="ceremony_hour">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                            <option>16</option>
+                                            <option>17</option>
+                                            <option>18</option>
+                                            <option>19</option>
+                                            <option>20</option>
+                                            <option>21</option>
+                                            <option>22</option>
+                                            <option>23</option>
+                                            <option>24</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="ceremony_minute" class="label_for_time">Minuta</label>
+                                        <select class="form-control" id="ceremony_minute">
+                                            <option>00</option>
+                                            <option>05</option>
+                                            <option>10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                            <option>25</option>
+                                            <option>30</option>
+                                            <option>35</option>
+                                            <option>40</option>
+                                            <option>45</option>
+                                            <option>50</option>
+                                            <option>55</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="sign_wedding_form">Datum a čas oslavy</div>
+                                <div style="        display: flex;
+        margin: 0px 0px 7px 60px;
+">
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="celebration_day" class="label_for_time">Den</label>
+                                        <select class="form-control" id="celebration_day">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                            <option>16</option>
+                                            <option>17</option>
+                                            <option>18</option>
+                                            <option>19</option>
+                                            <option>20</option>
+                                            <option>21</option>
+                                            <option>22</option>
+                                            <option>23</option>
+                                            <option>24</option>
+                                            <option>25</option>
+                                            <option>26</option>
+                                            <option>27</option>
+                                            <option>28</option>
+                                            <option>29</option>
+                                            <option>30</option>
+                                            <option>31</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 130px;
+        padding: 0px 5px;
+">
+                                        <label for="celebration_month" class="label_for_time">Měsíc</label>
+                                        <select class="form-control" id="celebration_month">
+                                            <option>Leden</option>
+                                            <option>Únor</option>
+                                            <option>Březen</option>
+                                            <option>Duben</option>
+                                            <option>Květen</option>
+                                            <option>Červen</option>
+                                            <option>Červenec</option>
+                                            <option>Srpen</option>
+                                            <option>Září</option>
+                                            <option>Říjen</option>
+                                            <option>Listopad</option>
+                                            <option>Prosinec</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 100px;
+        padding: 0px 5px;
+">
+                                        <label for="celebration_year" class="label_for_time">Rok</label>
+                                        <select class="form-control" id="celebration_year">
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                            <option>2028</option>
+                                            <option>2029</option>
+                                            <option>2030</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="celebration_hour" class="label_for_time">Hodina</label>
+                                        <select class="form-control" id="celebration_hour">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                            <option>16</option>
+                                            <option>17</option>
+                                            <option>18</option>
+                                            <option>19</option>
+                                            <option>20</option>
+                                            <option>21</option>
+                                            <option>22</option>
+                                            <option>23</option>
+                                            <option>24</option>
+                                        </select>
+                                    </div>
+                                    <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                                        <label for="celebration_minute" class="label_for_time">Minuta</label>
+                                        <select class="form-control" id="celebration_minute">
+                                            <option>00</option>
+                                            <option>05</option>
+                                            <option>10</option>
+                                            <option>15</option>
+                                            <option>20</option>
+                                            <option>25</option>
+                                            <option>30</option>
+                                            <option>35</option>
+                                            <option>40</option>
+                                            <option>45</option>
+                                            <option>50</option>
+                                            <option>55</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="submit_outer">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Založit svatbu" class="submit button" />
+                                </div>
+
+                            </fieldset>
+                        </form>
+
+                    </div>
                     <div class="tab-pane" id="host_info" role="tabpanel">content 2</div>
                 </div>
             </div>
@@ -56,24 +370,13 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content" style="        height: inherit;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid;
-        border-color: #fff #ddd #ddd #fff;
-">
+                <div class="tab-content tab_style">
                     <div class="tab-pane active" id="weddings_guests" role="tabpanel">
 
                         <form method="post">
                             <fieldset>
-                                <div style="        display: flex;
-        flex-direction: row;
-        padding: 40px 50px;
-        margin-bottom: 50px;">
-                                    <div style="flex-direction: column;
-                                                display: flex;
-                                                align-items: flex-end;">
+                                <div class="form_host">
+                                    <div class="form_host_inner">
                                         <div>
                                             <label for="first_name">Jméno:</label>
                                             <input type="text" name="first_name" value="" />
@@ -91,17 +394,15 @@
                                 
                                 <div style="padding: 15px;
                                             border: 1px solid #ddd;">
-                                    <div style="background-color: cornflowerblue; width: max-content; padding: 5px 16px; border-radius: 6px; margin: -35px 0px 0px -10px; color: white;">
+                                    <div class="form_sign">
                                         Přidat další osoby k této
                                     </div>
                                     <div style="flex-direction:row; display:flex;">
-                                    <div style="        padding: 30px 30px 0px
-">
+                                    <div style="padding: 30px 30px 0px">
                                         <label for="first_name">Jméno:</label>
                                         <input type="text" name="first_name" value="" />
                                     </div>
-                                    <div style="        padding: 30px 30px 0px
-">
+                                    <div style="padding: 30px 30px 0px">
                                         <label for="last_name">Příjmení:</label>
                                         <input type="text" name="last_name" value="" />
                                     </div>
@@ -109,9 +410,9 @@
                                     <div style="font-size: 40px; font-weight: bold; text-align: center;"><a href="">+</a></div>
                                 </div>
                                 
-                                <div style="display: flex; justify-content: flex-end; margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd;">
+                                <div class="submit_outer">
                                     <label>&nbsp;</label>
-                                    <input type="submit" value="Přidat hosta" class="submit" style=" background-color: cornflowerblue; color: white; border: none; border-radius: 4px; padding: 5px 16px;"/>
+                                    <input type="submit" value="Přidat hosta" class="submit button"/>
                                 </div>
                             </fieldset>
                         </form>
