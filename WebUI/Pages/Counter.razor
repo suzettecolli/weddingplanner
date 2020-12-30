@@ -369,7 +369,7 @@
                                     </div>
                                     <div style="align-self: center; margin-left: auto;">
                                         <label for="wedding_password">Heslo:</label>
-                                        <input type="text" name="wedding_password" value="" />
+                                        <input type="text" name="wedding_password" value="" disabled />
                                     </div>
                                 </div>
 
@@ -483,20 +483,491 @@
             <div style="height:540px;">
                 <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#a" role="tab">a</a>
+                        <a class="nav-link active" data-toggle="tab" href="#host_info" role="tab">Informace</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#b" role="tab">b</a>
+                        <a class="nav-link" data-toggle="tab" href="#host_gifts" role="tab">Svatební dary</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#c" role="tab">c</a>
+                        <a class="nav-link" data-toggle="tab" href="#host_my_info" role="tab">Mé údaje</a>
                     </li>
 
                 </ul>
-                <div class="tab-content tab_style">
-                    <div class="tab-pane active" id="a" role="tabpanel">a</div>
-                    <div class="tab-pane" id="b" role="tabpanel">b</div>
-                    <div class="tab-pane" id="c" role="tabpanel">c</div>
+                <div class="tab-content tab_style" style=" align-items: flex-start; overflow-y:scroll;">
+                    <div class="tab-pane active" id="host_info" role="tabpanel" style="    width: -webkit-fill-available;">
+                        <div>
+                            <input type="radio" id="host_wedding_select1" name="host_wedding_select" class="h_w_select" value="" checked />
+                            <div id="host_wedding_select1_active">UPRAVUJI</div>
+                            <label for="host_wedding_select1" style="        width: inherit;
+        display: flex;
+        justify-content: center;
+">
+                                <div style="        padding: 50px 80px;
+        border-bottom: 1px solid #ddd;
+        width: inherit;
+">
+
+                                    <div style=" font-weight: bold;">Název svatby</div>
+                                    <div style="        display: flex;
+        flex-direction: row;
+        font-style: italic;
+        margin-bottom: 15px;">
+                                        <span>Jméno nevěsty</span>
+                                        &
+                                        <span>Jméno ženicha</span>
+                                    </div>
+                                    <div style="        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+">
+                                        <div style="        display: flex;
+        flex-direction: column;
+        margin-right: 130px;
+">
+                                            <div>
+                                                <b>Obřad:</b>
+                                                <span>datum a cas</span>
+                                            </div>
+                                            <div style="display:flex; flex-direction: column;">
+                                                <b>Adresa obřadu</b>
+                                                <span style="margin-left: 50px;">Město</span>
+                                                <span style="margin-left: 50px;">Ulice</span>
+                                                <span style="margin-left: 50px;">číslo popisné</span>
+                                                <span style="margin-left: 50px;">PSČ</span>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; flex-direction: column;">
+                                            <div>
+                                                <b>Oslava:</b>
+                                                <span>datum a cas</span>
+                                            </div>
+                                            <div style="display:flex; flex-direction: column;">
+                                                <b>Adresa oslavy</b>
+                                                <span style="margin-left: 50px;">Město</span>
+                                                <span style="margin-left: 50px;">Ulice</span>
+                                                <span style="margin-left: 50px;">číslo popisné</span>
+                                                <span style="margin-left: 50px;">PSČ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <b>Kapacita:</b>
+                                        <span>cislo</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="host_wedding_select2" name="host_wedding_select" class="h_w_select" value="" />
+                            <div id="host_wedding_select2_active">UPRAVUJI</div>
+                            <label for="host_wedding_select2" style="width: inherit;
+        display: flex;
+        justify-content: center;
+">
+                                <div style="        padding: 50px 80px;
+        border-bottom: 1px solid #ddd;
+        width: inherit;
+">
+                                    <div style=" font-weight: bold;">Název svatby</div>
+                                    <div style="        display: flex;
+        flex-direction: row;
+        font-style: italic;
+        margin-bottom: 15px;">
+                                        <span>Jméno nevěsty</span>
+                                        &
+                                        <span>Jméno ženicha</span>
+                                    </div>
+                                    <div style="        display: flex;
+        flex-direction: row;
+        margin-bottom: 30px;
+">
+                                        <div style="        display: flex;
+        flex-direction: column;
+        margin-right: 130px;
+">
+                                            <div>
+                                                <b>Obřad:</b>
+                                                <span>datum a cas</span>
+                                            </div>
+                                            <div style="display:flex; flex-direction: column;">
+                                                <b>Adresa obřadu</b>
+                                                <span style="margin-left: 50px;">Město</span>
+                                                <span style="margin-left: 50px;">Ulice</span>
+                                                <span style="margin-left: 50px;">číslo popisné</span>
+                                                <span style="margin-left: 50px;">PSČ</span>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; flex-direction: column;">
+                                            <div>
+                                                <b>Oslava:</b>
+                                                <span>datum a cas</span>
+                                            </div>
+                                            <div style="display:flex; flex-direction: column;">
+                                                <b>Adresa oslavy</b>
+                                                <span style="margin-left: 50px;">Město</span>
+                                                <span style="margin-left: 50px;">Ulice</span>
+                                                <span style="margin-left: 50px;">číslo popisné</span>
+                                                <span style="margin-left: 50px;">PSČ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <b>Kapacita:</b>
+                                        <span>cislo</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="tab-pane" id="host_gifts" role="tabpanel" style="width: -webkit-fill-available;">
+
+                        <div style="        padding: 30px 80px 0px;
+        border-bottom: 1px solid #ddd;
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+">
+                            <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+                                <div style=" font-weight: bold;">Název daru</div>
+                                <div style="        display: flex;
+        flex-direction: row;
+        font-size: 20px; color:cornflowerblue; font-weight:bold;">
+                                    ~
+                                    <span>cena</span>
+                                    Kč
+                                </div>
+                            </div>
+                            <div style="order:2;">
+                                stav
+                            </div>
+
+                            <input type="checkbox" id="arrow1" class="h_g_select" value="" />
+                            <label id="arrow_label1" for="arrow1" style="        display: flex;
+        justify-content: center;
+        order: 4;
+        display: flex;
+        flex-direction: column;
+">
+                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
+                            </label>
+                            <div id="host_gift_more1" style="        order: 3;
+        flex-direction: column;
+        padding: 10px 0px;
+">
+                                <div style="padding-bottom: 10px;">
+                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
+                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
+                                </div>
+
+                                <div>
+                                    <b>Link:</b>
+                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
+                                </div>
+                                <div style="display: flex; justify-content: flex-end;">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Zarezervovat" class="submit button" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="        padding: 30px 80px 0px;
+        border-bottom: 1px solid #ddd;
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+">
+                            <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+                                <div style=" font-weight: bold;">Název daru</div>
+                                <div style="        display: flex;
+        flex-direction: row;
+        font-size: 20px; color:cornflowerblue; font-weight:bold;">
+                                    ~
+                                    <span>cena</span>
+                                    Kč
+                                </div>
+                            </div>
+                            <div style="order:2;">
+                                stav
+                            </div>
+
+                            <input type="checkbox" id="arrow2" class="h_g_select" value="" />
+                            <label id="arrow_label2" for="arrow2" style="        display: flex;
+        justify-content: center;
+        order: 4;
+        display: flex;
+        flex-direction: column;
+">
+                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
+                            </label>
+                            <div id="host_gift_more2" style="        order: 3;
+        flex-direction: column;
+        padding: 10px 0px;
+">
+                                <div style="padding-bottom: 10px;">
+                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
+                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
+                                </div>
+
+                                <div>
+                                    <b>Link:</b>
+                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
+                                </div>
+                                <div style="display: flex; justify-content: flex-end;">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Zarezervovat" class="submit button" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div style="        padding: 30px 80px 0px;
+        border-bottom: 1px solid #ddd;
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+">
+                            <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+                                <div style=" font-weight: bold;">Název daru</div>
+                                <div style="        display: flex;
+        flex-direction: row;
+        font-size: 20px; color:cornflowerblue; font-weight:bold;">
+                                    ~
+                                    <span>cena</span>
+                                    Kč
+                                </div>
+                            </div>
+                            <div style="order:2;">
+                                stav
+                            </div>
+
+                            <input type="checkbox" id="arrow3" class="h_g_select" value="" />
+                            <label id="arrow_label3" for="arrow3" style="        display: flex;
+        justify-content: center;
+        order: 4;
+        display: flex;
+        flex-direction: column;
+">
+                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
+                            </label>
+                            <div id="host_gift_more3" style="        order: 3;
+        flex-direction: column;
+        padding: 10px 0px;
+">
+                                <div style="padding-bottom: 10px;">
+                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
+                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
+                                </div>
+
+                                <div>
+                                    <b>Link:</b>
+                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
+                                </div>
+                                <div style="display: flex; justify-content: flex-end;">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Zarezervovat" class="submit button" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div style="        padding: 30px 80px 0px;
+        border-bottom: 1px solid #ddd;
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+">
+                            <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+                                <div style=" font-weight: bold;">Název daru</div>
+                                <div style="        display: flex;
+        flex-direction: row;
+        font-size: 20px; color:cornflowerblue; font-weight:bold;">
+                                    ~
+                                    <span>cena</span>
+                                    Kč
+                                </div>
+                            </div>
+                            <div style="order:2;">
+                                stav
+                            </div>
+
+                            <input type="checkbox" id="arrow4" class="h_g_select" value="" />
+                            <label id="arrow_label4" for="arrow4" style="        display: flex;
+        justify-content: center;
+        order: 4;
+        display: flex;
+        flex-direction: column;
+">
+                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
+                            </label>
+                            <div id="host_gift_more4" style="        order: 3;
+        flex-direction: column;
+        padding: 10px 0px;
+">
+                                <div style="padding-bottom: 10px;">
+                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
+                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
+                                </div>
+
+                                <div>
+                                    <b>Link:</b>
+                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
+                                </div>
+                                <div style="display: flex; justify-content: flex-end;">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Zarezervovat" class="submit button" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="host_my_info" role="tabpanel">
+                        <div style="        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+">
+                            <div style="align-self: center;">
+                                <div class="host_my_info_form" style="margin-left:0px;">
+                                    <label for="host_first_name">Jméno:</label>
+                                    <input type="text" name="host_first_name" value="" disabled />
+                                </div>
+                                <div class="host_my_info_form" style="margin-left:0px;">
+                                    <label for="host_last_name">Příjmení:</label>
+                                    <input type="text" name="host_last_name" value="" disabled />
+                                </div>
+                            </div>
+                            
+                            <div style="        display: flex;
+        flex-direction: column;">
+                                <div style="display: flex; justify-content: center; background-color: cornflowerblue; padding: 5px; color: white;">
+                                    Pozvaní se mnou
+                                </div>
+                                <div style="border: 1px solid #ddd; overflow-y: scroll; height: 70px;">
+                                    <div style="display: flex; flex-direction: column;">
+                                        <input type="radio" id="host_added_person1" name="host_added_person" class="h_a_person" value="" checked />
+                                        <label for="host_added_person1">Jmeno a Prijmeni</label>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <input type="radio" id="host_added_person2" name="host_added_person" class="h_a_person" value="" />
+                                        <label for="host_added_person2">Jmeno a Prijmeni2</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;">
+                            <div>
+                                <div>
+                                    Adresa
+                                </div>
+                                <div>
+                                    <div class="host_my_info_form">
+                                        <label for="host_city">Město:</label>
+                                        <input type="text" name="host_city" value="" />
+                                    </div>
+                                    <div class="host_my_info_form">
+                                        <label for="host_street">Ulice:</label>
+                                        <input type="text" name="host_street" value="" />
+                                    </div>
+                                    <div class="host_my_info_form">
+                                        <label for="host_number">Číslo popisné:</label>
+                                        <input type="text" name="host_number" value="" />
+                                    </div>
+                                    <div class="host_my_info_form">
+                                        <label for="host_postcode">PSČ:</label>
+                                        <input type="text" name="host_postcode" value="" />
+                                    </div>
+                                </div>
+                                <div style="margin-top: 25px;">
+                                    <div class="host_my_info_form" style="        margin-left: 0px;
+        width: 82%;
+">
+                                        <label for="phone">Telefon:</label>
+                                        <input type="text" name="phone" value="" />
+                                    </div>
+                                    <div class="host_my_info_form" style="        margin-left: 0px;
+        width: 82%;
+">
+                                        <label for="email">Email:</label>
+                                        <input type="text" name="email" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1">Zůčastním se obřadu</label>
+                                </div>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                    <label class="custom-control-label" for="customSwitch2">Zůčastním se oslavy</label>
+                                </div>
+                                <div>
+                                    <div class="form_sign" style="margin-top:0px;">Strava</div>
+                                    <div class="form-check" style="        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        padding: 15px 15px 15px 45px;
+        margin-top: -12px;
+        z-index: -1;
+">
+
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                Bezlepková dieta
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                            <label class="form-check-label" for="defaultCheck2">
+                                                Vegetariánská strava
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                                            <label class="form-check-label" for="defaultCheck3">
+                                                Bez omezení
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                    <label class="custom-control-label" for="customSwitch3">Mám se jak dostat z obřadu na oslavu</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit_outer" style="margin-top:20px;">
+                            <label>&nbsp;</label>
+                            <input type="submit" value="Uložit" class="submit button" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
