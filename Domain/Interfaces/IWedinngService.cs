@@ -8,7 +8,7 @@ namespace Domain.Interfaces
     public interface IWedinngService
     {
         void AddWedding(Wedding wedding);
-        void ArchiveWedding(int weddingId);
-        void AddOrganizer(AppUser organizer);
+        void RemoveWedding(int weddingId);
+        void AddOrganizer(int weddingId, AppUser organizer);
     }
 }

@@ -20,6 +20,7 @@ namespace ServiceCollections
             services.AddScoped<IGuestManageService, GuestManageService>();
             services.AddScoped<IWedinngGiftManagerService, WedinngGiftManagerService>();
             services.AddScoped<IWedinngItineraryService, WedinngItineraryService>();
+            
             services.AddScoped<IWedinngService, WedinngService>();
 
         }

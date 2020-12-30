@@ -15,5 +15,6 @@ namespace Domain.Entities
         public int GuestCappacity { get; set; }
         public int WeddingGiftListId { get; set; }
         public int WeddingItineraryListId { get; set; }
+        public AppUser Organiser { get; set; }
     }
 }

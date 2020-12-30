@@ -12,19 +12,25 @@ namespace Application.Services
 
         }
 
-        public void AddOrganizer(AppUser organizer)
+        public void AddOrganizer(int weddingId, AppUser organizer)
         {
-            throw new System.NotImplementedException();
+            var wedding = UnitOfWork.Wedinngs.Get(weddingId);
+            wedding.Organiser = organizer;
+            UnitOfWork.Wedinngs.Update(wedding);
+            UnitOfWork.Save();
         }
 
         public void AddWedding(Wedding wedding)
         {
-            throw new System.NotImplementedException();
+            UnitOfWork.Wedinngs.Add(wedding);
+            UnitOfWork.Save();
         }
 
-        public void ArchiveWedding(int weddingId)
+        public void RemoveWedding(int weddingId)
         {
-            throw new System.NotImplementedException();
+            var wedding = UnitOfWork.Wedinngs.Get(weddingId);
+            UnitOfWork.Wedinngs.Remove(wedding);
+            UnitOfWork.Save();
         }
     }
 }
