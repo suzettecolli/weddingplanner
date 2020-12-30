@@ -10,7 +10,7 @@ namespace Domain.Interfaces
 
         public void RemoveGuestFromWedinng(int wedinngId, int guestId);
 
-        public void GeneratePasswordForWeddingGuest(int wedinngId, int guestId);
+        public string GeneratePasswordForWeddingGuest(int wedinngId, int guestId);
 
     }
 }

@@ -9,29 +9,45 @@ namespace Application.Services
 {
     public class WedinngGiftManagerService : BaseService, IWedinngGiftManagerService
     {
-        public WedinngGiftManagerService(IUnitOfWork uow) : base(uow)
+        public WedinngGiftManagerService(IRepositories uow) : base(uow)
         {
 
         }
 
-        public void AddGiftToList(WeddingGift gift, int wedinngID)
+        public void AddGiftToList(WeddingGift gift, int wedinngID) //FIX proc id v parametrtu ?
         {
-            throw new NotImplementedException();
+            Repos.WedinngGifts.Add(gift);
+             
         }
 
         public void CreateGiftList(IEnumerable<(string Name, string Link)> gifts, int wedinngID)
         {
-            throw new NotImplementedException();
+            foreach (var gift in gifts)
+            {
+                Repos.WedinngGifts.Add(new WeddingGift()
+                {
+                    WeddingId = wedinngID,
+                    Name = gift.Name,
+                    Link = gift.Link,
+                    IsRegistred = false,
+
+                });
+            }
+             
         }
 
-        public bool RegisterGift(string giftId, string userId)
+        public void RegisterGift(int giftId, int userId)
         {
-            throw new NotImplementedException();
+            var gift = Repos.WedinngGifts.Get(giftId);
+            gift.UserId = userId;
+            Repos.WedinngGifts.Update(gift);
+             
         }
 
         public void RemoveGiftFromList(WeddingGift gift, int wedinngID)
         {
-            throw new NotImplementedException();
+            Repos.WedinngGifts.Remove(gift);
+             
         }
     }
 }

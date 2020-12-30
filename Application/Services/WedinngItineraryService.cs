@@ -10,23 +10,27 @@ namespace Application.Services
 {
     public class WedinngItineraryService : BaseService, IWedinngItineraryService
     {
-        public WedinngItineraryService(IUnitOfWork uow) : base(uow)
+        public WedinngItineraryService(IRepositories uow) : base(uow)
         {
 
         }
         public void AddItem(WeddingItineraryItem item)
         {
-            throw new NotImplementedException();
+            Repos.WedinngTasks.Add(item);
+             
         }
 
         public void ChangeState(WeddingGift gift, ItineraryState newState)
         {
-            throw new NotImplementedException();
+            var item = Repos.WedinngTasks.Get(gift.Id);
+            Repos.WedinngTasks.Update(item);
+             
         }
 
         public void RemoveItem(WeddingItineraryItem item)
         {
-            throw new NotImplementedException();
+            Repos.WedinngTasks.Remove(item);
+             
         }
     }
 }

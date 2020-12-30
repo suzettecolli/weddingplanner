@@ -7,24 +7,30 @@ namespace Application.Services
 {
     public class WedinngService : BaseService, IWedinngService
     {
-        public WedinngService(IUnitOfWork uow) : base(uow)
+        public WedinngService(IRepositories uow) : base(uow)
         {
 
         }
 
-        public void AddOrganizer(AppUser organizer)
+        public void AddOrganizer(int weddingId, AppUser organizer)
         {
-            throw new System.NotImplementedException();
+            var wedding = Repos.Wedinngs.Get(weddingId);
+            wedding.Organiser = organizer;
+            Repos.Wedinngs.Update(wedding);
+             
         }
 
         public void AddWedding(Wedding wedding)
         {
-            throw new System.NotImplementedException();
+            Repos.Wedinngs.Add(wedding);
+             
         }
 
-        public void ArchiveWedding(int weddingId)
+        public void RemoveWedding(int weddingId)
         {
-            throw new System.NotImplementedException();
+            var wedding = Repos.Wedinngs.Get(weddingId);
+            Repos.Wedinngs.Remove(wedding);
+             
         }
     }
 }

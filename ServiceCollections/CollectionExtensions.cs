@@ -20,6 +20,7 @@ namespace ServiceCollections
             services.AddScoped<IGuestManageService, GuestManageService>();
             services.AddScoped<IWedinngGiftManagerService, WedinngGiftManagerService>();
             services.AddScoped<IWedinngItineraryService, WedinngItineraryService>();
+            
             services.AddScoped<IWedinngService, WedinngService>();
 
         }
@@ -32,7 +33,7 @@ namespace ServiceCollections
             services.AddScoped<IWedinngItineraryRepository, WedinngItineraryRepository>();
             services.AddScoped<IWedinngRepository, WedinngRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepositories, Repos>();
         }
 
         public static void AddWeddingPlanner(this IServiceCollection services)

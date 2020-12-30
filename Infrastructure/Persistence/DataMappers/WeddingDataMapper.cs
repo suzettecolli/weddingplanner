@@ -7,7 +7,7 @@ namespace Infrastructure.Persistence.DataMappers
 {
     public class WeddingDataMapper : DataMapper<Wedding>
     {
-        public WeddingDataMapper() : base("WeddingTable", "@ID, @WeddingName, @BrideName, @GroomsName, @CeremonyAddress, @CelebrationAddress, @CeremonyDateTime, @CelebrationDateTime, @GuestCappacity") { }
+        public WeddingDataMapper() : base("WeddingTable", "@ID, @WeddingName, @BrideName, @GroomsName, @CeremonyAddressId, @CelebrationAddressId, @CeremonyDateTime, @CelebrationDateTime, @GuestCappacity") { }
 
         public override void AddParameters(Wedding entity, SqlParameterCollection parameterCollection)
         {
@@ -15,8 +15,8 @@ namespace Infrastructure.Persistence.DataMappers
             parameterCollection.AddWithValue("@WeddingName", entity.WeddingName);
             parameterCollection.AddWithValue("@BrideName", entity.BrideName);
             parameterCollection.AddWithValue("@GroomsName", entity.GroomsName);
-            parameterCollection.AddWithValue("@CeremonyAddress", entity.CeremonyAddress);
-            parameterCollection.AddWithValue("@CelebrationAddress", entity.CelebrationAddress);
+            parameterCollection.AddWithValue("@CeremonyAddress", entity.CeremonyAddressId);
+            parameterCollection.AddWithValue("@CelebrationAddress", entity.CelebrationAddressId);
             parameterCollection.AddWithValue("@CeremonyDateTime", entity.CeremonyDateTime);
             parameterCollection.AddWithValue("@CelebrationDateTime", entity.CelebrationDateTime);
             parameterCollection.AddWithValue("@GuestCappacity", entity.GuestCappacity);
@@ -29,8 +29,8 @@ namespace Infrastructure.Persistence.DataMappers
                 WeddingName = (string)sqlDataReader["WeddingName"],
                 BrideName = (string)sqlDataReader["BrideName"],
                 GroomsName = (string)sqlDataReader["GroomsName"],
-                CeremonyAddress = (Address)sqlDataReader["CeremonyAddress"],
-                CelebrationAddress = (Address)sqlDataReader["CelebrationAddress"],
+                CeremonyAddressId = (int)sqlDataReader["CeremonyAddressId"],
+                CelebrationAddressId = (int)sqlDataReader["CelebrationAddressId"],
                 CeremonyDateTime = (DateTime)sqlDataReader["CeremonyDateTime"],
                 CelebrationDateTime = (DateTime)sqlDataReader["CelebrationDateTime"],
                 GuestCappacity = (int)sqlDataReader["GuestCappacity"],

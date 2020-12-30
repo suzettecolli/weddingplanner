@@ -1,6 +1,8 @@
-﻿namespace Application.Interfaces
+﻿using Domain.Entities;
+
+namespace Application.Interfaces
 {
-    public interface IWedinngGiftRepository
+    public interface IWedinngGiftRepository : IRepository<WeddingGift>
     {
     }
 }

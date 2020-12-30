@@ -8,12 +8,13 @@ namespace Domain.Entities
         public string WeddingName { get; set; }
         public string BrideName { get; set; }
         public string GroomsName { get; set; }
-        public Address CeremonyAddress { get; set; }
-        public Address CelebrationAddress { get; set; }
+        public int CeremonyAddressId { get; set; }
+        public int CelebrationAddressId { get; set; }
         public DateTime CeremonyDateTime { get; set; }
         public DateTime CelebrationDateTime { get; set; }
         public int GuestCappacity { get; set; }
         public int WeddingGiftListId { get; set; }
         public int WeddingItineraryListId { get; set; }
+        public AppUser Organiser { get; set; }
     }
 }
