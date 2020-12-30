@@ -2,38 +2,39 @@
 
 
 <div>
-    <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
+
+    <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Informace</a>
+            <a class="nav-link active" data-toggle="tab" href="#weddings" role="tab">Mé svatby</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#guests" role="tab">Hosté</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#gifts" role="tab">Dary</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#itinerary" role="tab">Itinerář</a>
+            <a class="nav-link" data-toggle="tab" href="#host" role="tab">Hostem</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="info" role="tabpanel">
+        <div class="tab-pane active" id="weddings" role="tabpanel">
 
             <div style="height:540px;">
-                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
+                <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#weddings_info" role="tab">Mé svatby</a>
+                        <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Informace</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_info" role="tab">Hostem</a>
+                        <a class="nav-link" data-toggle="tab" href="#guests" role="tab">Hosté</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#gifts" role="tab">Dary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#itinerary" role="tab">Itinerář</a>
                     </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content tab_style">
-                    <div class="tab-pane active wedding_form_outer" id="weddings_info" role="tabpanel">
+                    <div class="tab-pane active wedding_form_outer" id="info" role="tabpanel">
                         <form method="post">
                             <fieldset>
                                 <div class="wedding_form" style="margin-left:0px;">
@@ -351,27 +352,7 @@
                         </form>
 
                     </div>
-                    <div class="tab-pane" id="host_info" role="tabpanel">content 2</div>
-                </div>
-            </div>
-
-
-
-        </div>
-        <div class="tab-pane" id="guests" role="tabpanel">
-            <div style="height:540px;">
-                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#weddings_guests" role="tab">Mé svatby</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_guests" role="tab">Hostem</a>
-                    </li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content tab_style">
-                    <div class="tab-pane active" id="weddings_guests" role="tabpanel">
+                    <div class="tab-pane" id="guests" role="tabpanel">
 
                         <form method="post">
                             <fieldset>
@@ -391,56 +372,34 @@
                                         <input type="text" name="wedding_password" value="" />
                                     </div>
                                 </div>
-                                
+
                                 <div style="padding: 15px;
                                             border: 1px solid #ddd;">
                                     <div class="form_sign">
                                         Přidat další osoby k této
                                     </div>
                                     <div style="flex-direction:row; display:flex;">
-                                    <div style="padding: 30px 30px 0px">
-                                        <label for="first_name">Jméno:</label>
-                                        <input type="text" name="first_name" value="" />
-                                    </div>
-                                    <div style="padding: 30px 30px 0px">
-                                        <label for="last_name">Příjmení:</label>
-                                        <input type="text" name="last_name" value="" />
-                                    </div>
+                                        <div style="padding: 30px 30px 0px">
+                                            <label for="first_name">Jméno:</label>
+                                            <input type="text" name="first_name" value="" />
+                                        </div>
+                                        <div style="padding: 30px 30px 0px">
+                                            <label for="last_name">Příjmení:</label>
+                                            <input type="text" name="last_name" value="" />
+                                        </div>
                                     </div>
                                     <div style="font-size: 40px; font-weight: bold; text-align: center;"><a href="">+</a></div>
                                 </div>
-                                
+
                                 <div class="submit_outer">
                                     <label>&nbsp;</label>
-                                    <input type="submit" value="Přidat hosta" class="submit button"/>
+                                    <input type="submit" value="Přidat hosta" class="submit button" />
                                 </div>
                             </fieldset>
                         </form>
 
                     </div>
-                    <div class="tab-pane" id="host_guests" role="tabpanel">content 4</div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="tab-pane" id="gifts" role="tabpanel">
-            <div style="height:540px;">
-                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#weddings_gifts" role="tab">Mé svatby</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_gifts" role="tab">Hostem</a>
-                    </li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content tab_style" style="height: inherit;
-        display: flex;
-        align-items: center;
-        padding-left: 40px;">
-                    <div class="tab-pane active" id="weddings_gifts" role="tabpanel">
+                    <div class="tab-pane" id="gifts" role="tabpanel">
                         <form method="post">
                             <fieldset>
                                 <div class="form_host" style="padding: 0px; margin-bottom: 40px;">
@@ -464,7 +423,7 @@
                                     <div>
                                         <div class="gifts_form">
                                             <label for="description">Popis:</label>
-                                            <textarea rows="4" cols="50" name="description"/>
+                                            <textarea rows="4" cols="50" name="description" />
                                         </div>
                                         <div class="gifts_form">
                                             <label for="link">Link:</label>
@@ -481,29 +440,7 @@
                         </form>
 
                     </div>
-                    <div class="tab-pane" id="host_gifts" role="tabpanel">content 6</div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="tab-pane" id="itinerary" role="tabpanel">
-            <div style="height:540px;">
-                <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#weddings_itinerary" role="tab">Mé svatby</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_itinerary" role="tab">Hostem</a>
-                    </li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content tab_style" style="height: inherit;
-        display: flex;
-        align-items: center;
-        padding-left: 40px;">
-                    <div class="tab-pane active" id="weddings_itinerary" role="tabpanel">
+                    <div class="tab-pane" id="itinerary" role="tabpanel">
                         <form method="post">
                             <fieldset>
                                 <div class="form_host" style="  padding: 0px;
@@ -523,9 +460,9 @@
                                     <div class="form_sign">
                                         Popis
                                     </div>
-                                        <div class="gifts_form" style="margin-top: 15px;">
-                                            <textarea rows="4" cols="50" name="description" />
-                                        </div>
+                                    <div class="gifts_form" style="margin-top: 15px;">
+                                        <textarea rows="4" cols="50" name="description" />
+                                    </div>
                                 </div>
 
                                 <div class="submit_outer">
@@ -536,11 +473,33 @@
                         </form>
 
                     </div>
-                    <div class="tab-pane" id="host_itinerary" role="tabpanel">content 8</div>
                 </div>
             </div>
 
 
+
         </div>
+        <div class="tab-pane" id="host" role="tabpanel">
+            <div style="height:540px;">
+                <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#a" role="tab">a</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#b" role="tab">b</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#c" role="tab">c</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content tab_style">
+                    <div class="tab-pane active" id="a" role="tabpanel">a</div>
+                    <div class="tab-pane" id="b" role="tabpanel">b</div>
+                    <div class="tab-pane" id="c" role="tabpanel">c</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
