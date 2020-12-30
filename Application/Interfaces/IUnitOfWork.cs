@@ -9,6 +9,7 @@ namespace Application.Interfaces
         public IWedinngGiftRepository WedinngGifts { get; set; }
         public IWedinngItineraryRepository WedinngTasks { get; set; }
         public IWedinngRepository Wedinngs { get; set; }
+        public IWeddingParticipantRepository Participants{ get; set; }
         
 
 
