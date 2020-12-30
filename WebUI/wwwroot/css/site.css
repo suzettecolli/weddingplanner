@@ -158,6 +158,12 @@ app {
     color: white;
 }
 
+.gifts_form {
+    padding: 5px 30px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
 .button {
     background-color: cornflowerblue;
     color: white;
