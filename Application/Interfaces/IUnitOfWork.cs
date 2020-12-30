@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces
+﻿
+
+namespace Application.Interfaces
 {
     public interface IUnitOfWork
     {
@@ -7,6 +9,8 @@
         public IWedinngGiftRepository WedinngGifts { get; set; }
         public IWedinngItineraryRepository WedinngTasks { get; set; }
         public IWedinngRepository Wedinngs { get; set; }
+        
+
 
         public int Save();
     }

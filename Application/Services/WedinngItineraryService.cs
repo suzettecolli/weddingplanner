@@ -16,17 +16,21 @@ namespace Application.Services
         }
         public void AddItem(WeddingItineraryItem item)
         {
-            throw new NotImplementedException();
+            UnitOfWork.WedinngTasks.Add(item);
+            UnitOfWork.Save();
         }
 
         public void ChangeState(WeddingGift gift, ItineraryState newState)
         {
-            throw new NotImplementedException();
+            var item = UnitOfWork.WedinngTasks.Get(gift.Id);
+            UnitOfWork.WedinngTasks.Update(item);
+            UnitOfWork.Save();
         }
 
         public void RemoveItem(WeddingItineraryItem item)
         {
-            throw new NotImplementedException();
+            UnitOfWork.WedinngTasks.Remove(item);
+            UnitOfWork.Save();
         }
     }
 }
