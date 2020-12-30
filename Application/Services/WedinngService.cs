@@ -7,30 +7,30 @@ namespace Application.Services
 {
     public class WedinngService : BaseService, IWedinngService
     {
-        public WedinngService(IUnitOfWork uow) : base(uow)
+        public WedinngService(IRepositories uow) : base(uow)
         {
 
         }
 
         public void AddOrganizer(int weddingId, AppUser organizer)
         {
-            var wedding = UnitOfWork.Wedinngs.Get(weddingId);
+            var wedding = Repos.Wedinngs.Get(weddingId);
             wedding.Organiser = organizer;
-            UnitOfWork.Wedinngs.Update(wedding);
-            UnitOfWork.Save();
+            Repos.Wedinngs.Update(wedding);
+             
         }
 
         public void AddWedding(Wedding wedding)
         {
-            UnitOfWork.Wedinngs.Add(wedding);
-            UnitOfWork.Save();
+            Repos.Wedinngs.Add(wedding);
+             
         }
 
         public void RemoveWedding(int weddingId)
         {
-            var wedding = UnitOfWork.Wedinngs.Get(weddingId);
-            UnitOfWork.Wedinngs.Remove(wedding);
-            UnitOfWork.Save();
+            var wedding = Repos.Wedinngs.Get(weddingId);
+            Repos.Wedinngs.Remove(wedding);
+             
         }
     }
 }

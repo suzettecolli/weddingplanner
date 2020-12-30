@@ -17,12 +17,12 @@ namespace Application.Services
     {
         private string _salt = "Jm8mCE0HvVUw1GugoTpruA==";
         public (string UserName, bool LoggedIn) UserStatus { get; private set; }
-        public AppUserService(IUnitOfWork uow) : base(uow)
+        public AppUserService(IRepositories uow) : base(uow)
         {
         }
         public bool LogIn(string userName, string password)
         {
-            var user = UnitOfWork.AppUsers.GetAll().FirstOrDefault(x => x.UserName == userName);
+            var user = Repos.AppUsers.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null && user.PasswordHash.Equals(Hasher(password)))
             {
                 UserStatus = (UserName: userName, LoggedIn: true);
@@ -40,8 +40,8 @@ namespace Application.Services
 
         public bool Register(AppUser user, string password)
         {
-            UnitOfWork.AppUsers.Add(user);
-            UnitOfWork.Save();
+            Repos.AppUsers.Add(user);
+             
             return true;
         }
 

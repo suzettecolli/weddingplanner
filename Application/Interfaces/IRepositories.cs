@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IRepositories
     {
         public IAddressRepository Addresses { get; set; }
         public IAppUserRepository AppUsers { get; set; }
@@ -12,7 +12,5 @@ namespace Application.Interfaces
         public IWeddingParticipantRepository Participants{ get; set; }
         
 
-
-        public int Save();
     }
 }

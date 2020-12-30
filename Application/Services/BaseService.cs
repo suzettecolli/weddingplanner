@@ -5,10 +5,10 @@ namespace Application.Services
 {
     public abstract class BaseService
     {
-        public IUnitOfWork UnitOfWork { get; private set; }
-        public BaseService(IUnitOfWork uow)
+        public IRepositories Repos { get; private set; }
+        public BaseService(IRepositories repos)
         {
-            UnitOfWork = uow;
+            Repos = repos;
         }
     }
 }

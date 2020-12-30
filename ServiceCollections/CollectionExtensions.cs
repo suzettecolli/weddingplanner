@@ -33,7 +33,7 @@ namespace ServiceCollections
             services.AddScoped<IWedinngItineraryRepository, WedinngItineraryRepository>();
             services.AddScoped<IWedinngRepository, WedinngRepository>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepositories, Repos>();
         }
 
         public static void AddWeddingPlanner(this IServiceCollection services)

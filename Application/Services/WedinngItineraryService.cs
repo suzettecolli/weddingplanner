@@ -10,27 +10,27 @@ namespace Application.Services
 {
     public class WedinngItineraryService : BaseService, IWedinngItineraryService
     {
-        public WedinngItineraryService(IUnitOfWork uow) : base(uow)
+        public WedinngItineraryService(IRepositories uow) : base(uow)
         {
 
         }
         public void AddItem(WeddingItineraryItem item)
         {
-            UnitOfWork.WedinngTasks.Add(item);
-            UnitOfWork.Save();
+            Repos.WedinngTasks.Add(item);
+             
         }
 
         public void ChangeState(WeddingGift gift, ItineraryState newState)
         {
-            var item = UnitOfWork.WedinngTasks.Get(gift.Id);
-            UnitOfWork.WedinngTasks.Update(item);
-            UnitOfWork.Save();
+            var item = Repos.WedinngTasks.Get(gift.Id);
+            Repos.WedinngTasks.Update(item);
+             
         }
 
         public void RemoveItem(WeddingItineraryItem item)
         {
-            UnitOfWork.WedinngTasks.Remove(item);
-            UnitOfWork.Save();
+            Repos.WedinngTasks.Remove(item);
+             
         }
     }
 }

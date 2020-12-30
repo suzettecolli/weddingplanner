@@ -9,22 +9,22 @@ namespace Application.Services
 {
     public class WedinngGiftManagerService : BaseService, IWedinngGiftManagerService
     {
-        public WedinngGiftManagerService(IUnitOfWork uow) : base(uow)
+        public WedinngGiftManagerService(IRepositories uow) : base(uow)
         {
 
         }
 
         public void AddGiftToList(WeddingGift gift, int wedinngID) //FIX proc id v parametrtu ?
         {
-            UnitOfWork.WedinngGifts.Add(gift);
-            UnitOfWork.Save();
+            Repos.WedinngGifts.Add(gift);
+             
         }
 
         public void CreateGiftList(IEnumerable<(string Name, string Link)> gifts, int wedinngID)
         {
             foreach (var gift in gifts)
             {
-                UnitOfWork.WedinngGifts.Add(new WeddingGift()
+                Repos.WedinngGifts.Add(new WeddingGift()
                 {
                     WeddingId = wedinngID,
                     Name = gift.Name,
@@ -33,21 +33,21 @@ namespace Application.Services
 
                 });
             }
-            UnitOfWork.Save();
+             
         }
 
         public void RegisterGift(int giftId, int userId)
         {
-            var gift = UnitOfWork.WedinngGifts.Get(giftId);
+            var gift = Repos.WedinngGifts.Get(giftId);
             gift.UserId = userId;
-            UnitOfWork.WedinngGifts.Update(gift);
-            UnitOfWork.Save();
+            Repos.WedinngGifts.Update(gift);
+             
         }
 
         public void RemoveGiftFromList(WeddingGift gift, int wedinngID)
         {
-            UnitOfWork.WedinngGifts.Remove(gift);
-            UnitOfWork.Save();
+            Repos.WedinngGifts.Remove(gift);
+             
         }
     }
 }
