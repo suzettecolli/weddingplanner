@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{E4911E89-420B-4EBE-B0D3-5FA25A3FE77C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceCollections", "ServiceCollections\ServiceCollections.csproj", "{107E32CD-445E-4B43-A1BC-3128A476B1D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceCollections", "ServiceCollections\ServiceCollections.csproj", "{107E32CD-445E-4B43-A1BC-3128A476B1D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

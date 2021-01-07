@@ -2,8 +2,8 @@
 {
     public enum ItineraryState
     {
-        NotStarted,
-        InProgress,
-        Complete
+        NotStarted=0,
+        InProgress=1,
+        Complete=2
     }
 }

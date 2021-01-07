@@ -1,0 +1,59 @@
+﻿@page "/login"
+@inject NavigationManager NavManager
+@inject LoginState loginState
+@inject IAppUserRepository appUserRepos
+@inject IAppUserService appUser
+    <form method="post" style=" display: flex; justify-content: center; margin-top: 70px;">
+        <EditForm Model="@user" OnValidSubmit="@LogIn" style="        padding: 46px;
+        border: 1px solid #ddd;
+        width: min-content;
+">
+            @if (error == true)
+            {<div style="text-transform: uppercase; font-size: 13px; margin-bottom: 15px; color: red;">Špatné přihlašovací údaje</div>}
+            <div class="form-group">
+                <p> Přihlašovací jméno</p>
+                <InputText type="text" @bind-Value="lModel.username" requ />
+            </div>
+            <div class="form-group">
+                <p>Heslo</p>
+                <InputText type="password" @bind-Value="lModel.password" />
+            </div>
+            <div style="justify-content: center; display: flex; margin-top: 50px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+                <input type="submit" value="Přihlásit se" class="submit button" />
+            </div>
+            <div style="        margin: 20px 0px 10px;
+        text-transform: uppercase;
+        color: cornflowerblue;
+        text-align: center;
+        cursor: pointer;
+" @onclick="Register">Ještě nemám účet</div>
+            <div style="        font-size: 12px;
+        font-style: italic;
+        text-align: center;
+">Přihlašovací údaje pro svatebního hosta uvedeny v e-mailu.</div>
+        </EditForm>
+    </form>
+
+    @code {
+        private AppUser user = new AppUser();
+        private LoginModel lModel = new LoginModel();
+
+        private bool successful;
+        private bool error = false;
+        private int id;
+        public void LogIn()
+        {
+            successful = appUser.LogIn(lModel.username, lModel.password);
+            if (successful)
+            {
+                loginState.SetLogin(true, lModel.username);
+                NavManager.NavigateTo($"/counter");
+            }
+            else error = true;
+        }
+
+        public void Register()
+        {
+            NavManager.NavigateTo("/register");
+        }
+    }

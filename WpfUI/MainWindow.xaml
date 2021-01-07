@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Wedding planner" Height="550" Width="800">
     <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Height="20" Margin="351,15,0,0" VerticalAlignment="Top" Width="115"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="20" Margin="497,15,0,0" VerticalAlignment="Top" Width="115"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="20" Margin="642,15,0,0" VerticalAlignment="Top" Width="115"/>
+        <TextBlock Margin="78,56,676,445" Background="CornflowerBlue" Foreground="White" TextAlignment="Center" Text="WP" FontSize="23" TextWrapping="Wrap" />
+        <TextBlock Text="WEDDING PLANNER" Foreground="CornflowerBlue" VerticalAlignment="Top" TextWrapping="Wrap" Margin="129,65,545,0"/>
 
     </Grid>
 </Window>

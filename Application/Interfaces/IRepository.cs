@@ -6,11 +6,13 @@ namespace Application.Interfaces
     {
         TEntity Get(long id);
         IList<TEntity> GetAll();
-        void Add(TEntity entity);
 
-        void Update(TEntity entity);
+        int GetLastID();
+        TEntity Add(TEntity entity);
 
-        void Remove(TEntity entity);
+        void Update(TEntity entity, string item);
+
+        void Remove(long id);
 
     }
 }

@@ -2,8 +2,7 @@
 {
     public enum GuestRole
     {
-        Guest,
-        Bride,
-        Grooms
+        Guest=0,
+        Organiser = 1
     }
 }

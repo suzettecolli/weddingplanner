@@ -1,7 +1,9 @@
 ﻿
 using Application.Interfaces;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Interfaces;
+using System.ComponentModel;
 
 namespace Application.Services
 {
@@ -12,13 +14,13 @@ namespace Application.Services
 
         }
 
-        public void AddOrganizer(int weddingId, AppUser organizer)
-        {
-            var wedding = Repos.Wedinngs.Get(weddingId);
-            wedding.Organiser = organizer;
-            Repos.Wedinngs.Update(wedding);
-             
-        }
+        //public void AddOrganizer(int weddingId, int organizerId)
+        //{
+        //    var wedding = Repos.Wedinngs.Get(weddingId);
+        //    wedding.OrganiserId = organizerId;
+        //    Repos.Wedinngs.Update(wedding, "Organiser");
+
+        //}
 
         public void AddWedding(Wedding wedding)
         {
@@ -26,10 +28,21 @@ namespace Application.Services
              
         }
 
+        public Wedding GetWedding(int id)
+        {
+            var wedding = Repos.Wedinngs.Get(id);
+            return wedding;
+        }
+
+        public int GetLastWeddingId()
+        {
+            var id = Repos.Wedinngs.GetLastID();
+            return id;
+        }
+
         public void RemoveWedding(int weddingId)
         {
-            var wedding = Repos.Wedinngs.Get(weddingId);
-            Repos.Wedinngs.Remove(wedding);
+            Repos.Wedinngs.Remove(weddingId);
              
         }
     }

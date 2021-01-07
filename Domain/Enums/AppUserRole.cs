@@ -2,8 +2,8 @@
 {
     public enum AppUserRole
     {
-        Administrator,
-        Organizer,
-        User
+        Administrator=0,
+        Organizer=1,
+        User=2
     }
 }

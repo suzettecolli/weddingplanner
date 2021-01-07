@@ -16,30 +16,38 @@ namespace Application.Services
     public class AppUserService : BaseService, IAppUserService
     {
         private string _salt = "Jm8mCE0HvVUw1GugoTpruA==";
-        public (string UserName, bool LoggedIn) UserStatus { get; private set; }
+
         public AppUserService(IRepositories uow) : base(uow)
         {
+        }
+
+        public bool VerificateWeddingLog(AppUser user, string password)
+        {
+            var participant = Repos.Participants.GetAll().Where(x => x.AppUserId == user.Id);
+            foreach (WeddingParticipant wp in participant)
+            {
+                if (wp != null && wp.WeddingPassword.Equals(Hasher(password)))
+                {
+                    wp.Verificated = true;
+                    Repos.Participants.Update(wp, "Verificated");
+                    return true;
+                }
+            }
+            return false;
         }
         public bool LogIn(string userName, string password)
         {
             var user = Repos.AppUsers.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null && user.PasswordHash.Equals(Hasher(password)))
             {
-                UserStatus = (UserName: userName, LoggedIn: true);
                 return true;
             }
-            UserStatus = (UserName: " ", LoggedIn: false);
             return false;
-        }
-
-        public bool LogOut()
-        {
-            UserStatus = (UserName: " ", LoggedIn: false);
-            return true;
         }
 
         public bool Register(AppUser user, string password)
         {
+            user.PasswordHash = Hasher(password);
             Repos.AppUsers.Add(user);
              
             return true;
@@ -56,6 +64,11 @@ namespace Application.Services
                 numBytesRequested: 256 / 8));
 
             return hashed;
+        }
+
+        public string HashPassword(string input)
+        {
+            return Hasher(input);
         }
     }
 }

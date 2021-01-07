@@ -1,4 +1,7 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+﻿@inject LoginState loginState
+@inject IAppUserService appUserService
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
         <span style="        
         background-color: #187bcd;
@@ -13,24 +16,47 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            @if (loginState.IsLoggedIn)
+            {
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <NavLink class="navigation-link" href="" Match="NavLinkMatch.All">
-                        Jsem svatební host
+                    <NavLink class="navigation-link" href="weddinglog">
+                        Přihlásit se ke svatbě
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="navigation-link" href="counter">
+                    <NavLink class="navigation-link" href="weddingCreate">
                         Založit svatbu
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="navigation-link" href="fetchdata">
-                        Přihlásit se
+                    <NavLink class="navigation-link" href="counter">
+                        Svatby
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="navigation-link" href="" @onclick="Logout">
+                        Odhlásit se
                     </NavLink>
                 </li>
             </ul>
-        </div>
+            }
+            @if (!loginState.IsLoggedIn)
+            {
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+            <NavLink class="navigation-link" href="register">
+                Registrovat se
+            </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="navigation-link" href="login">
+                    Přihlásit se
+                </NavLink>
+            </li>
+        </ul>
+                    }
+            </div>
     </div>
 </nav>
 
@@ -41,8 +67,22 @@
 
     string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
 
+    private void Logout()
+    {
+        loginState.SetLogin(false, "");
+    }
+
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        loginState.OnChange += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        loginState.OnChange -= StateHasChanged;
     }
 }

@@ -1,0 +1,49 @@
+﻿@page "/register"
+@inject NavigationManager NavManager
+@inject IAppUserRepository appUserRepos
+@inject IAppUserService appUser
+<form method="post" style=" display: flex; justify-content: center; margin-top: 70px;">
+    <EditForm Model="@user" OnValidSubmit="@Redirect" style="        padding: 46px;
+        border: 1px solid #ddd;
+        width: min-content;
+">
+        <div class="form-group">
+            <p>Jméno:</p>
+            <InputText type="text" @bind-Value="user.FirstName" />
+        </div>
+        <div class="form-group">
+            <p>Příjmení: </p>
+            <InputText type="text" @bind-Value="user.LastName" />
+        </div>
+        <div class="form-group">
+            <p>Email:</p>
+            <InputText type="email" @bind-Value="user.Email" />
+        </div>
+        <div class="form-group">
+            <p>Přihlašovací jméno: </p>
+            <InputText type="text" @bind-Value="user.UserName" />
+        </div>
+        <div class="form-group">
+            <p>Heslo</p>
+            <InputText type="password" @bind-Value="password" />
+        </div>
+        <div style="justify-content: center; display: flex; margin-top: 50px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+            <input type="submit" value="Registrovat se" class="submit button" />
+        </div>
+
+    </EditForm>
+</form>
+
+@code {
+    private AppUser user = new AppUser();
+    private string password;
+    private int id;
+    public void Redirect()
+    {
+        user.AddressId = -1;
+        user.PhoneNumber = "";
+        user.Role = Domain.Enums.AppUserRole.Organizer;
+        appUser.Register(user, password);
+        NavManager.NavigateTo("/login");
+    }
+}

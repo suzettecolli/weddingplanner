@@ -1,0 +1,43 @@
+﻿@page "/weddinglog"
+@inject NavigationManager NavManager
+@inject IAppUserRepository appUserRepos
+@inject IAppUserService appUser
+@inject LoginState loginState
+<form method="post" style=" display: flex; justify-content: center; margin-top: 70px;">
+    <EditForm Model="@us" OnValidSubmit="@LogIn" style="        padding: 46px;
+        border: 1px solid #ddd;
+        width: min-content;
+">
+        @if (error == true)
+        {<div style="text-transform: uppercase; font-size: 13px; margin-bottom: 15px; color: red;">Špatné přihlašovací údaje</div>}
+        <div class="form-group">
+            <p>Heslo ke svatbě</p>
+            <InputText type="password" @bind-Value="weddPassword" />
+        </div>
+        <div style="justify-content: center; display: flex; margin-top: 50px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+            <input type="submit" value="Přihlásit se ke svatbě" class="submit button" />
+        </div>
+
+    </EditForm>
+</form>
+
+@code {
+    private AppUser us = new AppUser();
+    private string email;
+    private string weddPassword;
+    private bool successful;
+    private bool error = false;
+    public void LogIn()
+    {
+        var user = appUserRepos.GetAll().FirstOrDefault(x => x.UserName == loginState.username);
+        successful = appUser.VerificateWeddingLog(user, weddPassword);
+        if (successful)
+        {
+            string tmp = "info_form";
+            NavManager.NavigateTo($"/counter/{@tmp}");
+        }
+        else error = true;
+    }
+}
+@*BPRtGjlZ5z*@
+

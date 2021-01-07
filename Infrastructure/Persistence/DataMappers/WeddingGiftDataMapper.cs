@@ -7,11 +7,10 @@ namespace Infrastructure.Persistence.DataMappers
 {
     public class WeddingGiftDataMapper : DataMapper<WeddingGift>
     {
-        public WeddingGiftDataMapper() : base("WeddingGiftTable", "@ID, @WeddingId, @Name, @Link, @Description, @Price, @IsRegistred, @UserId") { }
+        public WeddingGiftDataMapper() : base("WeddingGiftTable", "@WeddingId, @Name, @Link, @Description, @Price, @IsRegistred, @UserId") { }
 
         public override void AddParameters(WeddingGift entity, SqlParameterCollection parameterCollection)
         {
-            parameterCollection.AddWithValue("@ID", entity.Id);
             parameterCollection.AddWithValue("@WeddingId", entity.WeddingId);
             parameterCollection.AddWithValue("@Name", entity.Name);
             parameterCollection.AddWithValue("@Link", entity.Link);
@@ -25,6 +24,7 @@ namespace Infrastructure.Persistence.DataMappers
         {
             var entity = new WeddingGift()
             {
+                Id= (int)sqlDataReader["ID"],
                 WeddingId = (int)sqlDataReader["WeddingId"],
                 Name = (string)sqlDataReader["Name"],
                 Link = (string)sqlDataReader["Link"],

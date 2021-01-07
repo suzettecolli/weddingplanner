@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Application.Interfaces;
-
+using Domain.Entities;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -15,22 +15,35 @@ namespace Application.Services
         {
 
         }
-        public void AddGuestToWedinng(int wedinngId, int guestId)
+        public void AddGuestToWedinng(int wedinngId, int guestId, string weddingPassword)
         {
             var wedding = Repos.Wedinngs.Get(wedinngId);
-            Repos.Participants.Add(new Domain.Entities.WeddingParticipant() // use wedding name as wedding password
+
+            Repos.Participants.Add(new Domain.Entities.WeddingParticipant()
             {
                 AppUserId = guestId,
                 WeddingId = wedinngId,
-                WeddingPassword = wedding.WeddingName
-            });
-             
+                WeddingPassword = weddingPassword,
+                WeddingsRole = Domain.Enums.GuestRole.Guest,
+                AttendationOfCeremony = true,
+                AttendationOfCelebration = true,
+                Transportation = true,
+                Food = Domain.Enums.FoodLimits.Bez_omezení,
+                ConnectedPersons = 0,
+            }) ;   
         }
 
-        public string GeneratePasswordForWeddingGuest(int wedinngId, int guestId)
+        public string GeneratePasswordForWeddingGuest()
         {
-            var wedding = Repos.Wedinngs.Get(wedinngId);
-            return wedding.WeddingName;
+                const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                int length = 10;
+                StringBuilder res = new StringBuilder();
+                Random rnd = new Random();
+                while (0 < length--)
+                {
+                    res.Append(valid[rnd.Next(valid.Length)]);
+                }
+                return res.ToString();
         }
 
         public void RemoveGuestFromWedinng(int wedinngId, int guestId)
@@ -38,7 +51,7 @@ namespace Application.Services
             var partic = Repos.Participants.GetAll().FirstOrDefault(x => x.AppUserId == guestId && x.WeddingId == wedinngId);
             if(partic != null)
             {
-                Repos.Participants.Remove(partic);
+                Repos.Participants.Remove(partic.Id);
             }
         }
     }

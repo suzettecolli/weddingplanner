@@ -7,11 +7,10 @@ namespace Infrastructure.Persistence.DataMappers
 {
     public class AppUserDataMapper : DataMapper<AppUser>
     {
-        public AppUserDataMapper() : base("AppUserable", "@ID, @FirstName, @LastName, @UserName, @PasswordHash, @Email, @PhoneNumber, @AddressId, @Role") { }
+        public AppUserDataMapper() : base("AppUserTable", "@FirstName, @LastName, @UserName, @PasswordHash, @Email, @PhoneNumber, @AddressId, @Role") { }
 
         public override void AddParameters(AppUser entity, SqlParameterCollection parameterCollection)
         {
-            parameterCollection.AddWithValue("@ID", entity.Id);
             parameterCollection.AddWithValue("@FirstName", entity.FirstName);
             parameterCollection.AddWithValue("@LastName", entity.LastName);
             parameterCollection.AddWithValue("@UserName", entity.UserName);
@@ -26,13 +25,14 @@ namespace Infrastructure.Persistence.DataMappers
         {
             var entity = new AppUser()
             {
+                Id = (int)sqlDataReader["ID"],
                 FirstName = (string)sqlDataReader["FirstName"],
                 LastName = (string)sqlDataReader["LastName"],
                 UserName = (string)sqlDataReader["UserName"],
                 PasswordHash = (string)sqlDataReader["PasswordHash"],
                 Email = (string)sqlDataReader["Email"],
                 PhoneNumber = (string)sqlDataReader["PhoneNumber"],
-                AddressId = (int)sqlDataReader["Address"],
+                AddressId = (int)sqlDataReader["AddressId"],
                 Role = (AppUserRole)sqlDataReader["Role"],
             };
             return entity;

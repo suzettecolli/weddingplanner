@@ -1,25 +1,41 @@
-﻿@page "/counter"
+﻿@page "/counter/{info_form}"
+@page "/counter"
+@inject IWedinngService ws
+@inject IWedinngRepository wRepos
+@inject IAddressRepository addressRepos
+@inject IWeddingParticipantRepository weddingParticipant
+@inject IGuestManageService guestService
+@inject IAppUserRepository appUserRepos
+@inject IAppUserService appUserService
+@inject IWedinngGiftManagerService giftService
+@inject IWedinngGiftRepository giftRepos
+@inject IWedinngItineraryService itiService
+@inject IWedinngItineraryRepository itiRepos
+@inject WeddingDateTime weddDate
+@inject WeddingSelect weddingSelect
+@inject NavigationManager navManager
+@inject LoginState loginState
 
 
 <div>
 
     <ul class="nav nav-tabs nav-tabs-vertical" role="tablist" style="float:left; flex-direction:column;">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#weddings" role="tab">Mé svatby</a>
+            <a class="@((WeddingInfoPane==true) ? "nav-link" : "nav-link active")" data-toggle="tab" href="#weddings" role="tab">Mé svatby</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#host" role="tab">Hostem</a>
+            <a class="@((WeddingInfoPane==true) ? "nav-link active" : "nav-link")" data-toggle="tab" href="#host" role="tab">Hostem</a>
         </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="weddings" role="tabpanel">
+        <div class="@((WeddingInfoPane==true) ? "tab-pane" : "tab-pane active")" id="weddings" role="tabpanel">
 
             <div style="height:540px;">
                 <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#info" role="tab">Informace</a>
+                        <a class="@((WeddingInfoPane==true) ? "nav-link" : "nav-link active")" data-toggle="tab" href="#info" role="tab">Informace</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#guests" role="tab">Hosté</a>
@@ -33,362 +49,342 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content tab_style">
-                    <div class="tab-pane active wedding_form_outer" id="info" role="tabpanel">
-                        <form method="post">
-                            <fieldset>
-                                <div class="wedding_form" style="margin-left:0px;">
-                                    <label for="wedding_name">Název svatby:</label>
-                                    <input type="text" name="wedding_name" value="" />
-                                </div>
-                                <div class="wedding_form" style="margin-left:0px;">
-                                    <label for="bride_name">Jméno a příjmení nevěsty:</label>
-                                    <input type="text" name="bride_name" value="" />
-                                </div>
-                                <div class="wedding_form" style="margin-left:0px;">
-                                    <label for="grooms_name">Jméno a příjmení ženicha:</label>
-                                    <input type="text" name="grooms_name" value="" />
-                                </div>
-                                <div class="sign_wedding_form">Adresa obřadu</div>
-                                <div class="wedding_form">
-                                    <label for="ceremony_city">Město:</label>
-                                    <input type="text" name="ceremony_city" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="ceremony_street">Ulice:</label>
-                                    <input type="text" name="ceremony_street" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="ceremony_number">Číslo popisné:</label>
-                                    <input type="text" name="ceremony_number" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="ceremony_postcode">PSČ:</label>
-                                    <input type="text" name="ceremony_postcode" value="" />
-                                </div>
-                                <div class="sign_wedding_form">Adresa oslavy</div>
-                                <div class="wedding_form">
-                                    <label for="celebration_city">Město:</label>
-                                    <input type="text" name="celebration_city" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="celebration_street">Ulice:</label>
-                                    <input type="text" name="celebration_street" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="celebration_number">Číslo popisné:</label>
-                                    <input type="text" name="celebration_number" value="" />
-                                </div>
-                                <div class="wedding_form">
-                                    <label for="celebration_postcode">PSČ:</label>
-                                    <input type="text" name="celebration_postcode" value="" />
-                                </div>
-                                <div class="sign_wedding_form">Datum a čas obřadu</div>
-                                <div style="        display: flex;
-        margin: 0px 0px 7px 60px;
+                <div class="tab-content tab_style" style="overflow-y:scroll;">
+                    <div class="@((WeddingInfoPane==false) ? "tab-pane active wedding_form_outer" : "tab-pane wedding_form_outer")" id="info" role="tabpanel" style="        padding: 0px;
+        overflow-y: unset;
 ">
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="ceremony_day" class="label_for_time">Den</label>
-                                        <select class="form-control" id="ceremony_day">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                            <option>15</option>
-                                            <option>16</option>
-                                            <option>17</option>
-                                            <option>18</option>
-                                            <option>19</option>
-                                            <option>20</option>
-                                            <option>21</option>
-                                            <option>22</option>
-                                            <option>23</option>
-                                            <option>24</option>
-                                            <option>25</option>
-                                            <option>26</option>
-                                            <option>27</option>
-                                            <option>28</option>
-                                            <option>29</option>
-                                            <option>30</option>
-                                            <option>31</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 130px;
-        padding: 0px 5px;
-">
-                                        <label for="ceremony_month" class="label_for_time">Měsíc</label>
-                                        <select class="form-control" id="ceremony_month">
-                                            <option>Leden</option>
-                                            <option>Únor</option>
-                                            <option>Březen</option>
-                                            <option>Duben</option>
-                                            <option>Květen</option>
-                                            <option>Červen</option>
-                                            <option>Červenec</option>
-                                            <option>Srpen</option>
-                                            <option>Září</option>
-                                            <option>Říjen</option>
-                                            <option>Listopad</option>
-                                            <option>Prosinec</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 100px;
-        padding: 0px 5px;
-">
-                                        <label for="ceremony_year" class="label_for_time">Rok</label>
-                                        <select class="form-control" id="ceremony_year">
-                                            <option>2020</option>
-                                            <option>2021</option>
-                                            <option>2022</option>
-                                            <option>2023</option>
-                                            <option>2024</option>
-                                            <option>2025</option>
-                                            <option>2026</option>
-                                            <option>2027</option>
-                                            <option>2028</option>
-                                            <option>2029</option>
-                                            <option>2030</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="ceremony_hour" class="label_for_time">Hodina</label>
-                                        <select class="form-control" id="ceremony_hour">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                            <option>15</option>
-                                            <option>16</option>
-                                            <option>17</option>
-                                            <option>18</option>
-                                            <option>19</option>
-                                            <option>20</option>
-                                            <option>21</option>
-                                            <option>22</option>
-                                            <option>23</option>
-                                            <option>24</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="ceremony_minute" class="label_for_time">Minuta</label>
-                                        <select class="form-control" id="ceremony_minute">
-                                            <option>00</option>
-                                            <option>05</option>
-                                            <option>10</option>
-                                            <option>15</option>
-                                            <option>20</option>
-                                            <option>25</option>
-                                            <option>30</option>
-                                            <option>35</option>
-                                            <option>40</option>
-                                            <option>45</option>
-                                            <option>50</option>
-                                            <option>55</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="sign_wedding_form">Datum a čas oslavy</div>
-                                <div style="        display: flex;
-        margin: 0px 0px 7px 60px;
-">
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="celebration_day" class="label_for_time">Den</label>
-                                        <select class="form-control" id="celebration_day">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                            <option>15</option>
-                                            <option>16</option>
-                                            <option>17</option>
-                                            <option>18</option>
-                                            <option>19</option>
-                                            <option>20</option>
-                                            <option>21</option>
-                                            <option>22</option>
-                                            <option>23</option>
-                                            <option>24</option>
-                                            <option>25</option>
-                                            <option>26</option>
-                                            <option>27</option>
-                                            <option>28</option>
-                                            <option>29</option>
-                                            <option>30</option>
-                                            <option>31</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 130px;
-        padding: 0px 5px;
-">
-                                        <label for="celebration_month" class="label_for_time">Měsíc</label>
-                                        <select class="form-control" id="celebration_month">
-                                            <option>Leden</option>
-                                            <option>Únor</option>
-                                            <option>Březen</option>
-                                            <option>Duben</option>
-                                            <option>Květen</option>
-                                            <option>Červen</option>
-                                            <option>Červenec</option>
-                                            <option>Srpen</option>
-                                            <option>Září</option>
-                                            <option>Říjen</option>
-                                            <option>Listopad</option>
-                                            <option>Prosinec</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 100px;
-        padding: 0px 5px;
-">
-                                        <label for="celebration_year" class="label_for_time">Rok</label>
-                                        <select class="form-control" id="celebration_year">
-                                            <option>2020</option>
-                                            <option>2021</option>
-                                            <option>2022</option>
-                                            <option>2023</option>
-                                            <option>2024</option>
-                                            <option>2025</option>
-                                            <option>2026</option>
-                                            <option>2027</option>
-                                            <option>2028</option>
-                                            <option>2029</option>
-                                            <option>2030</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="celebration_hour" class="label_for_time">Hodina</label>
-                                        <select class="form-control" id="celebration_hour">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                            <option>11</option>
-                                            <option>12</option>
-                                            <option>13</option>
-                                            <option>14</option>
-                                            <option>15</option>
-                                            <option>16</option>
-                                            <option>17</option>
-                                            <option>18</option>
-                                            <option>19</option>
-                                            <option>20</option>
-                                            <option>21</option>
-                                            <option>22</option>
-                                            <option>23</option>
-                                            <option>24</option>
-                                        </select>
-                                    </div>
-                                    <div style="        width: 80px;
-        padding: 0px 5px;
-">
-                                        <label for="celebration_minute" class="label_for_time">Minuta</label>
-                                        <select class="form-control" id="celebration_minute">
-                                            <option>00</option>
-                                            <option>05</option>
-                                            <option>10</option>
-                                            <option>15</option>
-                                            <option>20</option>
-                                            <option>25</option>
-                                            <option>30</option>
-                                            <option>35</option>
-                                            <option>40</option>
-                                            <option>45</option>
-                                            <option>50</option>
-                                            <option>55</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="submit_outer">
-                                    <label>&nbsp;</label>
-                                    <input type="submit" value="Založit svatbu" class="submit button" />
-                                </div>
+                        @if (weddingOrganisedLoad.Count != 0)
+                        {
+                            var num = -1;
+                    @foreach (Wedding wm in weddingOrganisedLoad)
+                    {
+                        num += 1;
+                        int helper = weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id));
+                        Address cereAddress = addressRepos.Get(wm.CeremonyAddressId);
+                        ceremonyAddress.Add(cereAddress);
+                        Address celeAddress = addressRepos.Get(wm.CelebrationAddressId);
+                        celebrationAddress.Add(celeAddress);
+                        WeddingDateTime.DateTimeModel cereDateTime = new WeddingDateTime.DateTimeModel() { Day = wm.CeremonyDateTime.Day.ToString(), Month = wm.CeremonyDateTime.Month.ToString(), Year = wm.CeremonyDateTime.Year.ToString(), Hour = wm.CeremonyDateTime.Hour.ToString(), Minute = wm.CeremonyDateTime.Minute.ToString() };
+                        ceremonyDateTime.Add(cereDateTime);
+                        WeddingDateTime.DateTimeModel celeDateTime = new WeddingDateTime.DateTimeModel() { Day = wm.CelebrationDateTime.Day.ToString(), Month = wm.CelebrationDateTime.Month.ToString(), Year = wm.CelebrationDateTime.Year.ToString(), Hour = wm.CelebrationDateTime.Hour.ToString(), Minute = wm.CelebrationDateTime.Minute.ToString() };
+                        celebrationDateTime.Add(celeDateTime);
+                        weNaChange.Add(false);
+                        brNaChange.Add(false);
+                        grNaChange.Add(false);
+                        cereAdChange.Add(false);
+                        celeAdChange.Add(false);
+                        cereDateChange.Add(false);
+                        celeDateChange.Add(false);
+                        wCapChange.Add(false);
+                        labelWedding.Add("Upravit");
+                        String @idW = "organised_wedding_select" + num;
+                        String @idA = idW + "_active";
+                        String @idEdit = @idW + "_edit";
 
-                            </fieldset>
-                        </form>
+                    <div>
+                        <input type="radio" id="@idW" name="organised_wedding_select" class="h_w_select" checked="@(wm.Id == weddingSelect.organisedSelectedWeddingId)" @onchange="@(() => WeddingOrganisedSelect(wm.Id))" />
+                        <div id="@idA" class="h_w_select_active">UPRAVUJI</div>
+                        <label for="@idW" style="        width: inherit;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        flex-direction: column;
+">
+                            <div style="        padding: 50px 80px;
+        width: inherit;
+">
 
+                                <div style="        font-weight: bold;
+        text-transform: capitalize;
+">@wm.WeddingName</div>
+                    <div style="        display: flex;
+        flex-direction: row;
+        font-style: italic;
+        margin-bottom: 15px;">
+                        <span>@wm.BrideName</span>
+                        &
+                        <span>@wm.GroomsName</span>
                     </div>
-                    <div class="tab-pane" id="guests" role="tabpanel">
+                    <div style="        display: flex;
+        flex-direction: row;
+                            margin-bottom: 30px;
+">
+                        <div style="        display: flex;
+        flex-direction: column;
+        margin-right: 130px;
+">
+                            <div>
+                                <b>Obřad:</b>
+                                <span>@ceremonyDateTime[helper].Day</span><span>.</span>
+                                <span>@ceremonyDateTime[helper].Month</span><span>.</span>
+                                <span>@ceremonyDateTime[helper].Year</span><span> v </span>
+                                <span>@ceremonyDateTime[helper].Hour</span><span>:</span>
+                                <span>@ceremonyDateTime[helper].Minute</span>
+                            </div>
+                            <div style="display:flex; flex-direction: column;">
+                                <b>Adresa obřadu</b>
+                                <span style="margin-left: 50px;">@ceremonyAddress[helper].City</span>
+                                <span style="margin-left: 50px;">@ceremonyAddress[helper].Street @ceremonyAddress[helper].Number</span>
+                                <span style="margin-left: 50px;">@ceremonyAddress[helper].PostCode</span>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction: column;">
+                            <div>
+                                <b>Oslava:</b>
+                                <span>@celebrationDateTime[helper].Day</span>.
+                                <span>@celebrationDateTime[helper].Month</span>.
+                                <span>@celebrationDateTime[helper].Year</span><span> v </span>
+                                <span>@celebrationDateTime[helper].Hour</span>:
+                                <span>@celebrationDateTime[helper].Minute</span>
+                            </div>
+                            <div style="display:flex; flex-direction: column;">
+                                <b>Adresa oslavy</b>
+                                <span style="margin-left: 50px;">@celebrationAddress[helper].City</span>
+                                <span style="margin-left: 50px;">@celebrationAddress[helper].Street @celebrationAddress[helper].Number</span>
+                                <span style="margin-left: 50px;">@celebrationAddress[helper].PostCode</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <b>Kapacita:</b>
+                        <span>@wm.GuestCappacity</span>
+                    </div>
+                    </div>
+                    <div>
+                    <input type="button" class="submit button" value="Smazat" @onclick="@(() => DeleteWedding(wm.Id))" />
+                    <input type="submit" id="@idEdit" class="submit button" value="@labelWedding[helper]" @onclick="@(() => LabelWeddingChange(helper))" style="margin-bottom: 40px;" />
+                    </div>
+                                        @if (labelWedding[helper] == "Schovat")
+                                        {
+                    <div class="weddingEditDiv">
+                        <form method="post" style="display: flex; justify-content: center; margin: 50px 0px;">
+                            <EditForm OnValidSubmit="@(() => HandleValidSubmit(helper))">
+                                <fieldset>
+                                    <div class="wedding_form" style="margin-left:0px;">
+                                        <label for="wedding_name">Název svatby:</label>
+                                        <InputText type="text" name="wedding_name" @bind-Value="wm.WeddingName" @oninput="@(() => weNaChange[helper] = true)">@wm.WeddingName</InputText>
+                                    </div>
+                                    <div class="wedding_form" style="margin-left:0px;">
+                                        <label for="bride_name">Jméno a příjmení nevěsty:</label>
+                                        <InputText type="text" name="bride_name" @bind-Value="wm.BrideName" @oninput="@(() => brNaChange[helper] = true)">@wm.BrideName</InputText>
+                                    </div>
+                                    <div class="wedding_form" style="margin-left:0px;">
+                                        <label for="grooms_name">Jméno a příjmení ženicha:</label>
+                                        <InputText type="text" name="grooms_name" @bind-Value="wm.GroomsName" @oninput="@(() => grNaChange[helper] = true)">@wm.GroomsName</InputText>
+                                    </div>
+                                    <div class="sign_wedding_form">Adresa obřadu</div>
+                                    <div class="wedding_form">
+                                        <label for="ceremony_city">Město:</label>
+                                        <InputText type="text" name="ceremony_city" @bind-Value="ceremonyAddress[helper].City" @oninput="@(() => cereAdChange[helper] = true)">@ceremonyAddress[helper].City</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="ceremony_street">Ulice:</label>
+                                        <InputText type="text" name="ceremony_street" @bind-Value="ceremonyAddress[helper].Street" @oninput="@(() => cereAdChange[helper] = true)">@ceremonyAddress[helper].Street</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="ceremony_number">Číslo popisné:</label>
+                                        <InputText type="text" name="ceremony_number" @bind-Value="ceremonyAddress[helper].Number" @oninput="@(() => cereAdChange[helper] = true)">@ceremonyAddress[helper].Number</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="ceremony_postcode">PSČ:</label>
+                                        <InputText type="text" name="ceremony_postcode" @bind-Value="ceremonyAddress[helper].PostCode" @oninput="@(() => cereAdChange[helper] = true)">@ceremonyAddress[helper].PostCode</InputText>
+                                    </div>
+                                    <div class="sign_wedding_form">Adresa oslavy</div>
+                                    <div class="wedding_form">
+                                        <label for="celebration_city">Město:</label>
+                                        <InputText type="text" name="celebration_city" @bind-Value="celebrationAddress[helper].City" @oninput="@(() => celeAdChange[helper] = true)">@celebrationAddress[helper].City</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="celebration_street">Ulice:</label>
+                                        <InputText type="text" name="celebration_street" @bind-Value="celebrationAddress[helper].Street" @oninput="@(() => celeAdChange[helper] = true)">@celebrationAddress[helper].Street</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="celebration_number">Číslo popisné:</label>
+                                        <InputText type="text" name="celebration_number" @bind-Value="celebrationAddress[helper].Number" @oninput="@(() => celeAdChange[helper] = true)">@celebrationAddress[helper].Number</InputText>
+                                    </div>
+                                    <div class="wedding_form">
+                                        <label for="celebration_postcode">PSČ:</label>
+                                        <InputText type="text" name="celebration_postcode" @bind-Value="celebrationAddress[helper].PostCode" @oninput="@(() => celeAdChange[helper] = true)">@celebrationAddress[helper].PostCode</InputText>
+                                    </div>
+                                    <div class="sign_wedding_form">Datum a čas obřadu</div>
+                                    <div style="        display: flex;
+                margin: 0px 0px 7px 60px;
+        ">
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="ceremony_day" class="label_for_time">Den</label>
+                                            <select class="form-control" id="ceremony_day" @onchange="@((ChangeEventArgs e) => { ceremonyDateTime[helper].Day = e.Value.ToString(); cereDateChange[helper] = true; })">
+                                                @for (int i = 1; i < 32; i++)
+                                                {
 
-                        <form method="post">
+                    <option selected=@(ceremonyDateTime[helper].Day == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 130px;
+                padding: 0px 5px;
+        ">
+                                            <label for="ceremony_month" class="label_for_time">Měsíc</label>
+                                            <select class="form-control" id="ceremony_month" @onchange="@((ChangeEventArgs e) => { ceremonyDateTime[helper].Month = e.Value.ToString(); cereDateChange[helper] = true; })">
+                                                @foreach (var m in weddDate.months)
+                                                {
+
+                    <option value="@m.Number" selected=@(ceremonyDateTime[helper].Month == m.Number.ToString())>@m.Name</option>}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 100px;
+                padding: 0px 5px;
+        ">
+                                            <label for="ceremony_year" class="label_for_time">Rok</label>
+                                            <select class="form-control" id="ceremony_year" @onchange="@((ChangeEventArgs e) => { ceremonyDateTime[helper].Year = e.Value.ToString(); cereDateChange[helper] = true; })">
+                                                @for (int i = 2020; i < 2041; i++)
+                                                {
+
+                    <option selected=@(ceremonyDateTime[helper].Year == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="ceremony_hour" class="label_for_time">Hodina</label>
+                                            <select class="form-control" id="ceremony_hour" @onchange="@((ChangeEventArgs e) => { ceremonyDateTime[helper].Hour = e.Value.ToString(); cereDateChange[helper] = true; })">
+                                                @for (int i = 0; i < 24; i++)
+                                                {
+
+                    <option selected=@(ceremonyDateTime[helper].Hour == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="ceremony_minute" class="label_for_time">Minuta</label>
+                                            <select class="form-control" id="ceremony_minute" @onchange="@((ChangeEventArgs e) => { ceremonyDateTime[helper].Minute = e.Value.ToString(); cereDateChange[helper] = true; })">
+                                                @for (int i = 0; i < 60; i += 5)
+                                                {
+
+                    <option selected=@(ceremonyDateTime[helper].Minute == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="sign_wedding_form">Datum a čas oslavy</div>
+                                    <div style="        display: flex;
+                margin: 0px 0px 7px 60px;
+        ">
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="celebration_day" class="label_for_time">Den</label>
+                                            <select class="form-control" id="celebration_day" @onchange="@((ChangeEventArgs e) => { celebrationDateTime[helper].Day = e.Value.ToString(); celeDateChange[helper] = true; })">
+                                                @for (int i = 1; i < 32; i++)
+                                                {
+
+                    <option selected=@(celebrationDateTime[helper].Day == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 130px;
+                padding: 0px 5px;
+        ">
+                                            <label for="celebration_month" class="label_for_time">Měsíc</label>
+                                            <select class="form-control" id="celebration_month" @onchange="@((ChangeEventArgs e) => { celebrationDateTime[helper].Month = e.Value.ToString(); celeDateChange[helper] = true; })">
+                                                @foreach (var m in weddDate.months)
+                                                {
+
+                    <option value="@m.Number" selected=@(celebrationDateTime[helper].Month == m.Number.ToString())>@m.Name</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 100px;
+                padding: 0px 5px;
+        ">
+                                            <label for="celebration_year" class="label_for_time">Rok</label>
+                                            <select class="form-control" id="celebration_year" @onchange="@((ChangeEventArgs e) => { celebrationDateTime[helper].Year = e.Value.ToString(); celeDateChange[helper] = true; })">
+                                                @for (int i = 2020; i < 2041; i++)
+                                                {
+
+                    <option selected=@(celebrationDateTime[weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id))].Year == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="celebration_hour" class="label_for_time">Hodina</label>
+                                            <select class="form-control" id="celebration_hour" @onchange="@((ChangeEventArgs e) => { celebrationDateTime[helper].Hour = e.Value.ToString(); celeDateChange[helper] = true; })">
+                                                @for (int i = 0; i < 24; i++)
+                                                {
+
+                    <option selected=@(celebrationDateTime[weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id))].Hour == i.ToString())>@i</option>
+}
+                                            </select>
+                                        </div>
+                                        <div style="        width: 80px;
+                padding: 0px 5px;
+        ">
+                                            <label for="celebration_minute" class="label_for_time">Minuta</label>
+                                            <select class="form-control" id="celebration_minute" @onchange="@((ChangeEventArgs e) => { celebrationDateTime[weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id))].Minute = e.Value.ToString(); celeDateChange[helper] = true; })">
+                                                @for (int i = 0; i < 60; i += 5)
+                                                {
+
+                    <option selected=@(celebrationDateTime[weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id))].Minute == i.ToString())>@i</option>}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="wedding_form" style="margin-left: 0px;">
+                                        <label for="wedding_capacity">Kapacita hostů:</label>
+                                        <InputNumber name="wedding-capacity" @bind-Value="wm.GuestCappacity" @oninput="@(() => wCapChange[weddingOrganisedLoad.IndexOf(weddingOrganisedLoad.First(x => x.Id == wm.Id))] = true)">@wm.GuestCappacity</InputNumber>
+                                    </div>
+                                    <div class="submit_outer">
+                                        <label>&nbsp;</label>
+                                        <input type="submit" value="Uložit úpravy" class="submit button" />
+                                    </div>
+
+                                </fieldset>
+                            </EditForm>
+                        </form>
+                    </div>} </label>
+                                                                            </div>}}
+                    </div>
+                    <div class="tab-pane" id="guests" role="tabpanel" style="width: -webkit-fill-available; height: -webkit-fill-available;">
+                        <div style="        background: lavender;
+        width: -webkit-fill-available;
+">
+                            @if (add)
+                            {
+                <div style="        display: flex;
+        justify-content: center;
+        padding: 30px 0px 20px;
+        border-bottom: 1px solid #ccc;
+">
+                    <form method="post">
+                        <EditForm Model="@appUserModel" OnValidSubmit="@HandleValidSubmit2">
                             <fieldset>
                                 <div class="form_host">
                                     <div class="form_host_inner">
                                         <div>
                                             <label for="first_name">Jméno:</label>
-                                            <input type="text" name="first_name" value="" />
+                                            <InputText type="text" name="first_name" @bind-Value="appUserModel.FirstName" />
                                         </div>
                                         <div>
                                             <label for="last_name">Příjmení:</label>
-                                            <input type="text" name="last_name" value="" />
+                                            <InputText type="text" name="last_name" @bind-Value="appUserModel.LastName" />
+                                        </div>
+                                        <div>
+                                            <label for="email">Email:</label>
+                                            <InputText type="text" name="email" @bind-Value="appUserModel.Email" />
                                         </div>
                                     </div>
-                                    <div style="align-self: center; margin-left: auto;">
-                                        <label for="wedding_password">Heslo:</label>
-                                        <input type="text" name="wedding_password" value="" disabled />
-                                    </div>
-                                </div>
-
-                                <div style="padding: 15px;
-                                            border: 1px solid #ddd;">
-                                    <div class="form_sign">
-                                        Přidat další osoby k této
-                                    </div>
-                                    <div style="flex-direction:row; display:flex;">
-                                        <div style="padding: 30px 30px 0px">
-                                            <label for="first_name">Jméno:</label>
-                                            <input type="text" name="first_name" value="" />
+                                    <div>
+                                        <div style="align-self: center; margin-left: auto;">
+                                            <label for="wedding_password">Heslo:</label>
+                                            <input type="text" name="wedding_password" value="@weddingPassword" disabled />
                                         </div>
-                                        <div style="padding: 30px 30px 0px">
-                                            <label for="last_name">Příjmení:</label>
-                                            <input type="text" name="last_name" value="" />
-                                        </div>
+                                        <div class="button" @onclick="@GeneratePassword">Generovat heslo</div>
                                     </div>
-                                    <div style="font-size: 40px; font-weight: bold; text-align: center;"><a href="">+</a></div>
                                 </div>
 
                                 <div class="submit_outer">
@@ -396,38 +392,125 @@
                                     <input type="submit" value="Přidat hosta" class="submit button" />
                                 </div>
                             </fieldset>
-                        </form>
+                        </EditForm>
+                    </form>
+                </div>}
+                            <div style=" display: flex; justify-content: center;">
+                                <input type="submit" class="submit button" value="@labelAdd" @onclick="Add" style="margin: 20px 0px;" />
+                            </div>
+
+                        </div>
+                        @foreach (List<WeddingParticipant> wguList in allWeddingGuests)
+                        {
+                            if (wguList.Count > 0 && wguList[0].WeddingId == weddingSelect.organisedSelectedWeddingId)
+                            {
+            @foreach (WeddingParticipant wgu in wguList)
+            {
+@if (wgu.AppUserId != userOnId)
+{
+<div style="padding: 40px 140px 0px; border-bottom: 1px solid #ddd;">
+
+    <div style="        display: flex;
+flex-direction:column;
+">
+        <div style=" font-weight: bold; text-transform:uppercase;"><span>@appUserRepos.Get(@wgu.AppUserId).FirstName @appUserRepos.Get(@wgu.AppUserId).LastName</span></div>
+        <div><span style=" font-weight: bold;">Email: </span><span>@appUserRepos.Get(@wgu.AppUserId).Email</span></div>
+        @if (wgu.Verificated == true)
+        {
+
+        @if (@wgu.AttendationOfCeremony == true)
+        {
+<div><b>Zůčastní se</b> obřadu.</div> }
+        else
+        {
+<div>
+    <b>Nezůčastní se</b> obřadu.
+</div>}
+        @if (@wgu.AttendationOfCelebration == true)
+        {
+<div>
+    <b>Zůčastní se</b> oslavy.
+</div> }
+        else
+        {
+<div>
+    <b>Nezůčastní se</b> oslavy.
+</div>}
+
+        <div><b>Osob navíc: </b> @wgu.ConnectedPersons</div>
+        <div><b>Strava:</b> <span style="text-transform:lowercase;">@wgu.Food.ToString().Replace("_", " ")</span></div>
+        @if (@wgu.Transportation == true)
+        {
+<div>
+    <b> Má</b> zajištěnou dopravu z obřadu na oslavu.
+</div> }
+        else
+        {
+<div>
+    <b>Nemá</b> zajištěnou dopravu z obřadu na oslavu.
+</div>}}
+        else
+        {
+            <div>Svatbu si ještě nepřidal.</div>
+        }
+
+    </div>
+
+
+    <input type="submit" class="submit button" value="Odebrat" @onclick="@(() => RemoveGuest(wgu.Id))" style="margin: 20px 0px 40px;" />
+
+</div>}}}
+    }
+
+
+
+
+
+
 
                     </div>
-                    <div class="tab-pane" id="gifts" role="tabpanel">
-                        <form method="post">
+                    <div class="tab-pane" id="gifts" role="tabpanel" style="        height: -webkit-fill-available;
+        width: -webkit-fill-available;
+">
+                        <div style="background: lavender;">
+                            @if (add)
+                            {
+                <div style="        display: flex;
+        justify-content: center;
+        padding: 10px 0px 20px;
+        border-bottom: 1px solid #ccc;
+">
+                    <form method="post">
+                        <EditForm Model="@giftModel" OnValidSubmit="@HandleValidSubmit3">
                             <fieldset>
-                                <div class="form_host" style="padding: 0px; margin-bottom: 40px;">
+                                <div class="form_host" style="        padding: 0px;
+        margin: 30px 0px;
+">
                                     <div style="display:flex;">
                                         <div style=" margin-right: 100px;">
                                             <label for="gift_name">Název:</label>
-                                            <input type="text" name="gift_name" value="" />
+                                            <InputText type="text" name="gift_name" @bind-Value="giftModel.Name"></InputText>
                                         </div>
                                         <div>
                                             <label for="cost">Cena:</label>
-                                            <input type="text" name="cost" value="" />
+                                            <InputNumber name="cost" @bind-Value="giftModel.Price"></InputNumber>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div style="padding: 15px;
-                                            border: 1px solid #ddd;">
+                                            border: 1px solid #ccc;">
                                     <div class="form_sign">
                                         Popis a případný link
                                     </div>
                                     <div>
                                         <div class="gifts_form">
                                             <label for="description">Popis:</label>
-                                            <textarea rows="4" cols="50" name="description" />
+                                            <InputTextArea rows="4" cols="50" name="description" @bind-Value="giftModel.Description"></InputTextArea>
                                         </div>
                                         <div class="gifts_form">
                                             <label for="link">Link:</label>
-                                            <input type="text" name="link" value="" />
+                                            <InputText type="text" name="link" @bind-Value="giftModel.Link"></InputText>
                                         </div>
                                     </div>
                                 </div>
@@ -437,11 +520,129 @@
                                     <input type="submit" value="Přidat dar" class="submit button" />
                                 </div>
                             </fieldset>
-                        </form>
+                        </EditForm>
+                    </form>
+                </div>}
+                            <div style=" display: flex; justify-content: center;">
+                                <input type="submit" class="submit button" value="@labelAdd" @onclick="Add" style="margin: 20px 0px;" />
+                            </div>
 
+                        </div>
+                        @foreach (List<WeddingGift> wgList in allWeddingGifts)
+                        {
+                            if (wgList.Count > 0 && wgList[0].WeddingId == weddingSelect.organisedSelectedWeddingId)
+                            {
+            @foreach (WeddingGift wg in wgList)
+            {
+                OrganisedgiftCount += 1;
+                String @more = "host_gift_more" + @OrganisedgiftCount;
+                int help = wgList.IndexOf(wgList.First(x => x.Id == wg.Id));
+                wgNChange.Add(false);
+                wgPChange.Add(false);
+                wgDChange.Add(false);
+                wgLChange.Add(false);
+                labelGift.Add("Upravit");
+
+<div class="@((wg.IsRegistred && wg.UserId == userOnId) ? "gift_outer registredByMe" : "gift_outer")">
+
+    <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+        <div style=" font-weight: bold;text-transform:uppercase;">@wg.Name</div>
+        <div style="        display: flex;
+        flex-direction: row;
+        font-size: 20px; color:cornflowerblue; font-weight:bold;">
+            ~
+            <span>@wg.Price</span>
+            Kč
+        </div>
+    </div>
+    <div style="order:2;">
+        @if (@wg.IsRegistred)
+        {<span style="color:tomato">Zamluvený </span><span>(@appUserRepos.Get(wg.UserId).FirstName @appUserRepos.Get(wg.UserId).LastName)</span>}
+        @if (!@wg.IsRegistred)
+        {<span style="color:forestgreen">Volný</span>}
+    </div>
+
+    <div id="@more" class="more" style="display:block;">
+        <div>
+            @wg.Description
+        </div>
+        @if (@wg.Link != "")
+        {
+<div>
+    <b>Link:</b>
+    <span>@wg.Link</span>
+</div>}
+        <input type="submit" class="submit button" value="@labelGift[help]" @onclick="@(() => LabelGiftChange(wg.Id))" style="margin: 20px 0px 40px;" />
+        @if (labelGift[help] == "Schovat")
+        {
+<form method="post">
+    <EditForm Model="@giftModel" OnValidSubmit="@(() => HandleValidSubmit3Edit(wg, help))">
+        <fieldset>
+            <div class="form_host" style="padding: 0px; margin-bottom: 40px;">
+                <div style="display:flex;">
+                    <div style=" margin-right: 100px;">
+                        <label for="gift_name">Název:</label>
+                        <InputText type="text" name="gift_name" @bind-Value="wg.Name" @oninput="@(() => wgNChange[help] = true)">@wg.Name</InputText>
                     </div>
-                    <div class="tab-pane" id="itinerary" role="tabpanel">
-                        <form method="post">
+                    <div>
+                        <label for="cost">Cena:</label>
+                        <InputNumber name="cost" @bind-Value="wg.Price" @oninput="@(() => wgPChange[help] = true)">@wg.Price</InputNumber>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 15px;
+                                            border: 1px solid #ddd;">
+                <div class="form_sign">
+                    Popis a případný link
+                </div>
+                <div>
+                    <div class="gifts_form">
+                        <label for="description">Popis:</label>
+                        <InputTextArea rows="4" cols="50" name="description" @bind-Value="wg.Description" @oninput="@(() => wgDChange[help] = true)">@wg.Description</InputTextArea>
+                    </div>
+                    <div class="gifts_form">
+                        <label for="link">Link:</label>
+                        <InputText type="text" name="link" @bind-Value="wg.Link" @oninput="@(() => wgLChange[help] = true)">@wg.Link</InputText>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="submit_outer">
+                    <input type="button" value="Smazat" class="submit button" @onclick="@(() => Delete(wg.Id))" />
+                    <label>&nbsp;</label>
+                    <input type="submit" value="Uložit změny" class="submit button" />
+                </div>
+            </div>
+        </fieldset>
+    </EditForm>
+</form>}
+
+    </div>
+
+</div>}}
+    }
+                    </div>
+                    <div class="tab-pane" id="itinerary" role="tabpanel" style="width: -webkit-fill-available;
+        height: -webkit-fill-available;
+        align-items: center;
+">
+                        <div style="        background: lavender;
+        width: -webkit-fill-available;
+">
+                            @if (add)
+                            {
+                <div style="        display: flex;
+        justify-content: center;
+        padding: 30px 0px 20px;
+        border-bottom: 1px solid #ccc;
+">
+                    <form method="post">
+                        <EditForm Model="@itineraryItem" OnValidSubmit="@HandleValidSubmit4">
                             <fieldset>
                                 <div class="form_host" style="  padding: 0px;
                                                                 margin-bottom: 40px;
@@ -449,19 +650,19 @@
                                                                 justify-content: center;">
                                     <div>
                                         <div>
-                                            <label for="gift_name">Název:</label>
-                                            <input type="text" name="gift_name" value="" />
+                                            <label for="item_name">Název:</label>
+                                            <InputText type="text" name="item_name" @bind-Value="itineraryItem.Name" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div style="padding: 15px;
-                                            border: 1px solid #ddd;">
+                                            border: 1px solid #ccc;">
                                     <div class="form_sign">
                                         Popis
                                     </div>
                                     <div class="gifts_form" style="margin-top: 15px;">
-                                        <textarea rows="4" cols="50" name="description" />
+                                        <InputTextArea rows="4" cols="50" @bind-Value="itineraryItem.Description" />
                                     </div>
                                 </div>
 
@@ -470,507 +671,910 @@
                                     <input type="submit" value="Přidat krok do itineráře" class="submit button" />
                                 </div>
                             </fieldset>
-                        </form>
+                        </EditForm>
+                    </form>
+                </div>}
+                            <div style=" display: flex; justify-content: center;">
+                                <input type="submit" class="submit button" value="@labelAdd" @onclick="Add" style="margin: 20px 0px;" />
+                            </div>
 
+                        </div>
+                        @foreach (List<WeddingItineraryItem> wiList in allWeddingItineraryItems)
+                        {
+                            if (wiList.Count > 0 && wiList[0].WeddingId == weddingSelect.organisedSelectedWeddingId)
+                            {
+            @foreach (WeddingItineraryItem wi in wiList)
+            {
+                OrganisedgiftCount += 1;
+                String @more = "host_gift_more" + @OrganisedgiftCount;
+                int helper = wiList.IndexOf(wiList.First(x => x.Id == wi.Id));
+                wiNChange.Add(false);
+                wiDChange.Add(false);
+                stateChange.Add(false);
+                labelItinerary.Add("Upravit");
+
+<div style="padding: 40px 140px 0px; border-bottom: 1px solid #ddd;">
+
+    <div style="        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        order:1;
+">
+        <div style=" font-weight: bold;text-transform:uppercase;">@wi.Name</div>
+        <div style="order:2;">
+            @if (@wi.State == Domain.Enums.ItineraryState.NotStarted)
+            {<span style="color:tomato; text-transform:uppercase;">Nezapočato </span>}
+            @if (@wi.State == Domain.Enums.ItineraryState.InProgress)
+            {<span style="color: orange; text-transform: uppercase;">V procesu</span>}
+            @if (@wi.State == Domain.Enums.ItineraryState.Complete)
+            {<span style="color: forestgreen; text-transform: uppercase;">Dokončeno</span>}
+        </div>
+    </div>
+
+
+    <div id="@more" class="more" style="display:block;">
+        <div>
+            @wi.Description
+        </div>
+
+        <input type="submit" class="submit button" value="@labelItinerary[helper]" @onclick="@(() => LabelItineraryChange(helper))" style="margin: 20px 0px 40px;" />
+        @if (labelItinerary[helper] == "Schovat")
+        {
+<form method="post" style="    padding-bottom: 40px;">
+    <EditForm Model="@itineraryItem" OnValidSubmit="@(()=>HandleValidSubmit4Edit(wi, helper))">
+        <fieldset>
+            <div style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 40px;">
+                <div class="form_host" style="        padding: 0px;
+        margin-bottom: 0px;
+">
+                    <div>
+                        <div>
+                            <label for="item_name">Název:</label>
+                            <InputText type="text" name="item_name" @bind-Value="wi.Name" @oninput="@(() => wiNChange[helper] = true)">@wi.Name</InputText>
+                        </div>
                     </div>
+                </div>
+                <div style="
+                padding: 0px 5px;
+        ">
+                    <label for="item_state" class="label_for_time">Stav</label>
+                    <select class="form-control" id="item_state" @onchange="@((ChangeEventArgs e) => { wi.State = (Domain.Enums.ItineraryState)Convert.ToInt32(e.Value); stateChange[helper] = true; })">
+                        <option selected=@(wi.State == Domain.Enums.ItineraryState.NotStarted) value="0" style="text-transform:uppercase; color:tomato;">Nezapočato</option>
+                        <option selected=@(wi.State == Domain.Enums.ItineraryState.InProgress) value="1" style="text-transform:uppercase; color:orange;">V procesu</option>
+                        <option selected=@(wi.State == Domain.Enums.ItineraryState.Complete) value="2" style="text-transform:uppercase; color:forestgreen;">Dokončeno</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="padding: 15px;
+                                            border: 1px solid #ddd;">
+                <div class="form_sign">
+                    Popis
+                </div>
+                <div class="gifts_form" style="margin-top: 15px;">
+                    <InputTextArea rows="4" cols="50" @bind-Value="wi.Description" @oninput="@(() => wiDChange[helper] = true)">@wi.Description</InputTextArea>
                 </div>
             </div>
 
 
+            <div class="submit_outer">
+                <input type="button" value="Smazat" class="submit button" @onclick="@(() => DeleteItineraryItem(wi.Id))" />
+                <label>&nbsp;</label>
+                <input type="submit" value="Uložit změny" class="submit button" />
+            </div>
+        </fieldset>
+    </EditForm>
+</form>}
 
+    </div>
+
+</div>}}
+    }
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="tab-pane" id="host" role="tabpanel">
+
+
+
+
+        <div class="@((WeddingInfoPane==true) ? "tab-pane active" : "tab-pane")" id="host" role="tabpanel">
             <div style="height:540px;">
                 <ul class="nav nav-tabs" role="tablist" style="margin-left:106px;">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#host_info" role="tab">Informace</a>
+                        <a class="@((WeddingInfoPane==true) ? "nav-link" : "nav-link active")" data-toggle="tab" href="#host_info" role="tab">Informace</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_gifts" role="tab">Svatební dary</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#host_my_info" role="tab">Mé údaje</a>
-                    </li>
+                    @if (weddingLoad.Count != 0)
+                    {
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#host_gifts" role="tab">Svatební dary</a>
+        </li>
+                        <li class="nav-item">
+                            <a class="@((WeddingInfoPane==true) ? "nav-link active" : "nav-link")" data-toggle="tab" href="#host_my_info" role="tab">Mé údaje</a>
+                        </li>
+}
+
 
                 </ul>
                 <div class="tab-content tab_style" style=" align-items: flex-start; overflow-y:scroll;">
-                    <div class="tab-pane active" id="host_info" role="tabpanel" style="    width: -webkit-fill-available;">
-                        <div>
-                            <input type="radio" id="host_wedding_select1" name="host_wedding_select" class="h_w_select" value="" checked />
-                            <div id="host_wedding_select1_active">UPRAVUJI</div>
-                            <label for="host_wedding_select1" style="        width: inherit;
+                    @if (weddingLoad.Count == 0)
+                    {
+        <div class="@((WeddingInfoPane==true) ? "tab-pane" : "tab-pane active")" id="host_info" role="tabpanel" style="        width: -webkit-fill-available;
+        height: -webkit-fill-available;
+">
+            <div style=" align-items: center;
         display: flex;
         justify-content: center;
+        font-size: 25px;
+        height: -webkit-fill-available;
+">Nejsi hostem na žádné svatbě.</div>
+
+        </div>}
+    else
+    {
+<div class="@((WeddingInfoPane==true) ? "tab-pane" : "tab-pane active")" id="host_info" role="tabpanel" style="        width: -webkit-fill-available;height: -webkit-fill-available;">
+
+    @foreach (Wedding wm in weddingLoad)
+    {
+        weddingNum += 1;
+        int helper = weddingLoad.IndexOf(weddingLoad.First(x => x.Id == wm.Id));
+        Address cereAddress = addressRepos.Get(wm.CeremonyAddressId);
+        Address celeAddress = addressRepos.Get(wm.CelebrationAddressId);
+        String @idW = "hosted_wedding_select" + weddingNum;
+        String @idA = idW + "_active";
+        String @idEdit = @idW + "_edit";
+
+<div>
+    <input type="radio" id="@idW" name="organised_wedding_select" class="h_w_select" checked=@(wm.Id == weddingSelect.hostSelectedWeddingId) @onchange="@(() => WeddingHostedSelect(wm.Id))" />
+    <div id="@idA" class="h_w_select_active">UPRAVUJI</div>
+    <label for="@idW" style="        width: inherit;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        flex-direction: column;
 ">
-                                <div style="        padding: 50px 80px;
-        border-bottom: 1px solid #ddd;
+        <div style="        padding: 50px 80px;
         width: inherit;
 ">
 
-                                    <div style=" font-weight: bold;">Název svatby</div>
-                                    <div style="        display: flex;
+            <div style="        font-weight: bold;
+        text-transform: capitalize;
+">@wm.WeddingName</div>
+<div style="        display: flex;
         flex-direction: row;
         font-style: italic;
         margin-bottom: 15px;">
-                                        <span>Jméno nevěsty</span>
-                                        &
-                                        <span>Jméno ženicha</span>
-                                    </div>
-                                    <div style="        display: flex;
+    <span>@wm.BrideName</span>
+    &
+    <span>@wm.GroomsName</span>
+</div>
+<div style="        display: flex;
         flex-direction: row;
-        margin-bottom: 30px;
+                            margin-bottom: 30px;
 ">
-                                        <div style="        display: flex;
+    <div style="        display: flex;
         flex-direction: column;
         margin-right: 130px;
 ">
-                                            <div>
-                                                <b>Obřad:</b>
-                                                <span>datum a cas</span>
-                                            </div>
-                                            <div style="display:flex; flex-direction: column;">
-                                                <b>Adresa obřadu</b>
-                                                <span style="margin-left: 50px;">Město</span>
-                                                <span style="margin-left: 50px;">Ulice</span>
-                                                <span style="margin-left: 50px;">číslo popisné</span>
-                                                <span style="margin-left: 50px;">PSČ</span>
-                                            </div>
-                                        </div>
-                                        <div style="display:flex; flex-direction: column;">
-                                            <div>
-                                                <b>Oslava:</b>
-                                                <span>datum a cas</span>
-                                            </div>
-                                            <div style="display:flex; flex-direction: column;">
-                                                <b>Adresa oslavy</b>
-                                                <span style="margin-left: 50px;">Město</span>
-                                                <span style="margin-left: 50px;">Ulice</span>
-                                                <span style="margin-left: 50px;">číslo popisné</span>
-                                                <span style="margin-left: 50px;">PSČ</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <b>Kapacita:</b>
-                                        <span>cislo</span>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="host_wedding_select2" name="host_wedding_select" class="h_w_select" value="" />
-                            <div id="host_wedding_select2_active">UPRAVUJI</div>
-                            <label for="host_wedding_select2" style="width: inherit;
-        display: flex;
-        justify-content: center;
-">
-                                <div style="        padding: 50px 80px;
-        border-bottom: 1px solid #ddd;
-        width: inherit;
-">
-                                    <div style=" font-weight: bold;">Název svatby</div>
-                                    <div style="        display: flex;
-        flex-direction: row;
-        font-style: italic;
-        margin-bottom: 15px;">
-                                        <span>Jméno nevěsty</span>
-                                        &
-                                        <span>Jméno ženicha</span>
-                                    </div>
-                                    <div style="        display: flex;
-        flex-direction: row;
-        margin-bottom: 30px;
-">
-                                        <div style="        display: flex;
-        flex-direction: column;
-        margin-right: 130px;
-">
-                                            <div>
-                                                <b>Obřad:</b>
-                                                <span>datum a cas</span>
-                                            </div>
-                                            <div style="display:flex; flex-direction: column;">
-                                                <b>Adresa obřadu</b>
-                                                <span style="margin-left: 50px;">Město</span>
-                                                <span style="margin-left: 50px;">Ulice</span>
-                                                <span style="margin-left: 50px;">číslo popisné</span>
-                                                <span style="margin-left: 50px;">PSČ</span>
-                                            </div>
-                                        </div>
-                                        <div style="display:flex; flex-direction: column;">
-                                            <div>
-                                                <b>Oslava:</b>
-                                                <span>datum a cas</span>
-                                            </div>
-                                            <div style="display:flex; flex-direction: column;">
-                                                <b>Adresa oslavy</b>
-                                                <span style="margin-left: 50px;">Město</span>
-                                                <span style="margin-left: 50px;">Ulice</span>
-                                                <span style="margin-left: 50px;">číslo popisné</span>
-                                                <span style="margin-left: 50px;">PSČ</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <b>Kapacita:</b>
-                                        <span>cislo</span>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-
-
-                    </div>
-
+        <div>
+            <b>Obřad:</b>
+            <span>@wm.CeremonyDateTime.ToString("d.M.yyyy") v @wm.CeremonyDateTime.ToString("HH:mm")</span>
+        </div>
+        <div style="display:flex; flex-direction: column;">
+            <b>Adresa obřadu</b>
+            <span style="margin-left: 50px;">@cereAddress.City</span>
+            <span style="margin-left: 50px;">@cereAddress.Street @cereAddress.Number</span>
+            <span style="margin-left: 50px;">@cereAddress.PostCode</span>
+        </div>
+    </div>
+    <div style="display:flex; flex-direction: column;">
+        <div>
+            <b>Oslava:</b>
+            <span>@wm.CelebrationDateTime.ToString("d.M.yyyy") v @wm.CelebrationDateTime.ToString("HH:mm")</span>
+        </div>
+        <div style="display:flex; flex-direction: column;">
+            <b>Adresa oslavy</b>
+            <span style="margin-left: 50px;">@celeAddress.City</span>
+            <span style="margin-left: 50px;">@celeAddress.Street @celeAddress.Number</span>
+            <span style="margin-left: 50px;">@celeAddress.PostCode</span>
+        </div>
+    </div>
+</div>
+<div>
+    <b>Kapacita:</b>
+    <span>@wm.GuestCappacity</span>
+</div>
+</div>
+</label>
+</div>}
+</div>}
 
                     <div class="tab-pane" id="host_gifts" role="tabpanel" style="width: -webkit-fill-available;">
 
-                        <div style="        padding: 30px 80px 0px;
-        border-bottom: 1px solid #ddd;
-        margin: 0px 40px;
-        display: flex;
-        flex-direction: column;
-">
-                            <div style="        display: flex;
+                        @foreach (List<WeddingGift> wgList in allHostedGifts)
+                        {
+            @if (wgList.Count > 0 && wgList[0].WeddingId == weddingSelect.hostSelectedWeddingId)
+            {
+@foreach (WeddingGift wg in wgList)
+{
+    String @giftCount = @weddingGiftCount.ToString();
+    String @arrow = "arrow" + @giftCount;
+    String @arrowLabel = "arrow_label" + @giftCount;
+    String @more = "host_gift_more" + @giftCount;
+
+<div class="@((wg.IsRegistred && wg.UserId == userOnId) ? "gift_outer registredByMe" : "gift_outer")">
+
+    <div style="        display: flex;
         justify-content: space-between;
         font-size: 20px;
         order:1;
 ">
-                                <div style=" font-weight: bold;">Název daru</div>
-                                <div style="        display: flex;
+        <div style=" font-weight: bold;text-transform:capitalize;">@wg.Name</div>
+        <div style="        display: flex;
         flex-direction: row;
         font-size: 20px; color:cornflowerblue; font-weight:bold;">
-                                    ~
-                                    <span>cena</span>
-                                    Kč
-                                </div>
-                            </div>
-                            <div style="order:2;">
-                                stav
-                            </div>
+            ~
+            <span>@wg.Price</span>
+            Kč
+        </div>
+    </div>
+    <div style="order:2;">
+        @if (@wg.IsRegistred)
+        {<span style="color:tomato">Zamluvený</span>}
+        @if (!@wg.IsRegistred)
+        {<span style="color:forestgreen">Volný</span>}
+    </div>
 
-                            <input type="checkbox" id="arrow1" class="h_g_select" value="" />
-                            <label id="arrow_label1" for="arrow1" style="        display: flex;
-        justify-content: center;
-        order: 4;
-        display: flex;
-        flex-direction: column;
-">
-                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
-                            </label>
-                            <div id="host_gift_more1" style="        order: 3;
-        flex-direction: column;
-        padding: 10px 0px;
-">
-                                <div style="padding-bottom: 10px;">
-                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
-                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
-                                </div>
+    <input type="checkbox" id="@arrow" class="h_g_select arrow" value="" />
+    <label id="@arrowLabel" for="@arrow" class="arrow_label">
+        <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
+    </label>
+    <div id="@more" class="more">
+        <div style="padding-bottom: 10px;">
+            @wg.Description
+        </div>
+        @if (@wg.Link != "")
+        {
+<div>
+    <b>Link:</b>
+    <span>@wg.Link</span>
+</div>}
+        @if (!wg.IsRegistred)
+        {
+<div style="display: flex; justify-content: flex-end;">
+    <label>&nbsp;</label>
+    <input type="submit" value="Zarezervovat" class="submit button" @onclick="@(e => RegisterGift(wg.Id))" />
+</div>}
+        @if (wg.IsRegistred && wg.UserId == userOnId)
+        {
+<div style="display: flex; justify-content: flex-end;">
+    <label>&nbsp;</label>
+    <input type="submit" value="Zrušit" class="submit button" @onclick="@(e => UnregisterGift(wg.Id))" />
+</div>}
 
-                                <div>
-                                    <b>Link:</b>
-                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
-                                </div>
-                                <div style="display: flex; justify-content: flex-end;">
-                                    <label>&nbsp;</label>
-                                    <input type="submit" value="Zarezervovat" class="submit button" />
-                                </div>
-                            </div>
-                        </div>
-                        <div style="        padding: 30px 80px 0px;
-        border-bottom: 1px solid #ddd;
-        margin: 0px 40px;
-        display: flex;
-        flex-direction: column;
-">
-                            <div style="        display: flex;
-        justify-content: space-between;
-        font-size: 20px;
-        order:1;
-">
-                                <div style=" font-weight: bold;">Název daru</div>
-                                <div style="        display: flex;
-        flex-direction: row;
-        font-size: 20px; color:cornflowerblue; font-weight:bold;">
-                                    ~
-                                    <span>cena</span>
-                                    Kč
-                                </div>
-                            </div>
-                            <div style="order:2;">
-                                stav
-                            </div>
+    </div>
 
-                            <input type="checkbox" id="arrow2" class="h_g_select" value="" />
-                            <label id="arrow_label2" for="arrow2" style="        display: flex;
-        justify-content: center;
-        order: 4;
-        display: flex;
-        flex-direction: column;
-">
-                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
-                            </label>
-                            <div id="host_gift_more2" style="        order: 3;
-        flex-direction: column;
-        padding: 10px 0px;
-">
-                                <div style="padding-bottom: 10px;">
-                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
-                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
-                                </div>
-
-                                <div>
-                                    <b>Link:</b>
-                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
-                                </div>
-                                <div style="display: flex; justify-content: flex-end;">
-                                    <label>&nbsp;</label>
-                                    <input type="submit" value="Zarezervovat" class="submit button" />
-                                </div>
-
-                            </div>
-                        </div>
-                        <div style="        padding: 30px 80px 0px;
-        border-bottom: 1px solid #ddd;
-        margin: 0px 40px;
-        display: flex;
-        flex-direction: column;
-">
-                            <div style="        display: flex;
-        justify-content: space-between;
-        font-size: 20px;
-        order:1;
-">
-                                <div style=" font-weight: bold;">Název daru</div>
-                                <div style="        display: flex;
-        flex-direction: row;
-        font-size: 20px; color:cornflowerblue; font-weight:bold;">
-                                    ~
-                                    <span>cena</span>
-                                    Kč
-                                </div>
-                            </div>
-                            <div style="order:2;">
-                                stav
-                            </div>
-
-                            <input type="checkbox" id="arrow3" class="h_g_select" value="" />
-                            <label id="arrow_label3" for="arrow3" style="        display: flex;
-        justify-content: center;
-        order: 4;
-        display: flex;
-        flex-direction: column;
-">
-                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
-                            </label>
-                            <div id="host_gift_more3" style="        order: 3;
-        flex-direction: column;
-        padding: 10px 0px;
-">
-                                <div style="padding-bottom: 10px;">
-                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
-                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
-                                </div>
-
-                                <div>
-                                    <b>Link:</b>
-                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
-                                </div>
-                                <div style="display: flex; justify-content: flex-end;">
-                                    <label>&nbsp;</label>
-                                    <input type="submit" value="Zarezervovat" class="submit button" />
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div style="        padding: 30px 80px 0px;
-        border-bottom: 1px solid #ddd;
-        margin: 0px 40px;
-        display: flex;
-        flex-direction: column;
-">
-                            <div style="        display: flex;
-        justify-content: space-between;
-        font-size: 20px;
-        order:1;
-">
-                                <div style=" font-weight: bold;">Název daru</div>
-                                <div style="        display: flex;
-        flex-direction: row;
-        font-size: 20px; color:cornflowerblue; font-weight:bold;">
-                                    ~
-                                    <span>cena</span>
-                                    Kč
-                                </div>
-                            </div>
-                            <div style="order:2;">
-                                stav
-                            </div>
-
-                            <input type="checkbox" id="arrow4" class="h_g_select" value="" />
-                            <label id="arrow_label4" for="arrow4" style="        display: flex;
-        justify-content: center;
-        order: 4;
-        display: flex;
-        flex-direction: column;
-">
-                                <div style="font-size: 15px; text-align: center; cursor: pointer;">▼</div>
-                            </label>
-                            <div id="host_gift_more4" style="        order: 3;
-        flex-direction: column;
-        padding: 10px 0px;
-">
-                                <div style="padding-bottom: 10px;">
-                                    Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla Popis tohoto daru bla bla bla
-                                    Popis tohoto daru bla bla bla. Popis tohoto daru bla bla bla.
-                                </div>
-
-                                <div>
-                                    <b>Link:</b>
-                                    <span>www.google.com/sfaefa/adsfa/fadwedsf/aefwe/fefwef/eafeaf</span>
-                                </div>
-                                <div style="display: flex; justify-content: flex-end;">
-                                    <label>&nbsp;</label>
-                                    <input type="submit" value="Zarezervovat" class="submit button" />
-                                </div>
-                            </div>
-                        </div>
+</div>IncreaseGiftCount();
+}}}
                     </div>
 
 
 
-                    <div class="tab-pane" id="host_my_info" role="tabpanel">
-                        <div style="        display: flex;
+
+                    <div class="@((WeddingInfoPane==true) ? "tab-pane active" : "tab-pane")" id="host_my_info" role="tabpanel">
+                        @foreach (WeddingParticipant wp in allHostedInfoForm)
+                        {
+            @if (wp.WeddingId == weddingSelect.hostSelectedWeddingId)
+            {
+<EditForm Model="@myInfoModel" OnValidSubmit="@(()=>HandleValidSubmit5(wp))">
+
+    <div style="        display: flex;
         justify-content: space-between;
         padding-bottom: 15px;
         border-bottom: 1px solid #ddd;
 ">
-                            <div style="align-self: center;">
-                                <div class="host_my_info_form" style="margin-left:0px;">
-                                    <label for="host_first_name">Jméno:</label>
-                                    <input type="text" name="host_first_name" value="" disabled />
-                                </div>
-                                <div class="host_my_info_form" style="margin-left:0px;">
-                                    <label for="host_last_name">Příjmení:</label>
-                                    <input type="text" name="host_last_name" value="" disabled />
-                                </div>
-                            </div>
-                            
-                            <div style="        display: flex;
+        <div style="align-self: center;">
+            <div class="host_my_info_form" style="margin-left:0px;">
+                <label for="host_first_name">Jméno:</label>
+                <InputText type="text" name="host_first_name" @bind-Value="@userOn.FirstName" readonly>@userOn.FirstName </InputText>
+            </div>
+            <div class="host_my_info_form" style="margin-left:0px;">
+                <label for="host_last_name">Příjmení:</label>
+                <InputText type="text" name="host_last_name" @bind-Value="@userOn.LastName" readonly>@userOn.LastName</InputText>
+            </div>
+        </div>
+
+        <div style="flex-direction: column;">
+            <div style="        display: flex;
+        justify-content: center;
+        background-color: lavender;
+        padding: 10px 35px;
         flex-direction: column;">
-                                <div style="display: flex; justify-content: center; background-color: cornflowerblue; padding: 5px; color: white;">
-                                    Pozvaní se mnou
-                                </div>
-                                <div style="border: 1px solid #ddd; overflow-y: scroll; height: 70px;">
-                                    <div style="display: flex; flex-direction: column;">
-                                        <input type="radio" id="host_added_person1" name="host_added_person" class="h_a_person" value="" checked />
-                                        <label for="host_added_person1">Jmeno a Prijmeni</label>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column;">
-                                        <input type="radio" id="host_added_person2" name="host_added_person" class="h_a_person" value="" />
-                                        <label for="host_added_person2">Jmeno a Prijmeni2</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="        display: flex;
+                Další osoby, které příjdou se mnou:
+                <span style="        font-style: italic;
+        font-size: 13px;
+">(vztahuje se pouze na manžela/přítele a děti)</span>
+            </div>
+            <div style="        border: 1px solid #ddd;
+        padding: 15px 109px;
+">
+                <div class="number-input md-number-input">
+                    <button @onclick="@(() => { wp.ConnectedPersons -= 1; cpChange = true; })" class="minus button_count">-</button>
+                    <input class="quantity" min="0" name="quantity" type="text" style="width:40px; text-align:center;" value="@wp.ConnectedPersons.ToString()" />
+                    <button @onclick="@(() => { wp.ConnectedPersons += 1; cpChange = true; })" class="plus button_count">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="        display: flex;
         justify-content: space-between;
-        padding-top: 20px;">
-                            <div>
-                                <div>
-                                    Adresa
-                                </div>
-                                <div>
-                                    <div class="host_my_info_form">
-                                        <label for="host_city">Město:</label>
-                                        <input type="text" name="host_city" value="" />
-                                    </div>
-                                    <div class="host_my_info_form">
-                                        <label for="host_street">Ulice:</label>
-                                        <input type="text" name="host_street" value="" />
-                                    </div>
-                                    <div class="host_my_info_form">
-                                        <label for="host_number">Číslo popisné:</label>
-                                        <input type="text" name="host_number" value="" />
-                                    </div>
-                                    <div class="host_my_info_form">
-                                        <label for="host_postcode">PSČ:</label>
-                                        <input type="text" name="host_postcode" value="" />
-                                    </div>
-                                </div>
-                                <div style="margin-top: 25px;">
-                                    <div class="host_my_info_form" style="        margin-left: 0px;
+        padding-top: 20px;
+">
+        <div>
+            <div>
+                Adresa
+            </div>
+            <div>
+                <div class="host_my_info_form">
+                    <label for="my_city">Město:</label>
+                    <InputText type="text" name="my_city" @bind-Value="myAddress.City" @oninput="@(() => aChange = true)">@myAddress.City</InputText>
+                </div>
+                <div class="host_my_info_form">
+                    <label for="my_street">Ulice:</label>
+                    <InputText type="text" name="my_street" @bind-Value="myAddress.Street" @oninput="@(() => aChange = true)">@myAddress.Street</InputText>
+                </div>
+                <div class="host_my_info_form">
+                    <label for="my_number">Číslo popisné:</label>
+                    <InputText type="text" name="my_number" @bind-Value="myAddress.Number" @oninput="@(() => aChange = true)">@myAddress.Number</InputText>
+                </div>
+                <div class="host_my_info_form">
+                    <label for="my_postcode">PSČ:</label>
+                    <InputText type="text" name="my_postcode" @bind-Value="myAddress.PostCode" @oninput="@(() => aChange = true)">@myAddress.PostCode</InputText>
+                </div>
+            </div>
+            <div style="margin-top: 25px;">
+                <div class="host_my_info_form" style="        margin-left: 0px;">
+                    <label for="my_phone">Telefon:</label>
+                    <InputText type="text" name="my_phone" @bind-Value="userOn.PhoneNumber" style="width: 261px;" @oninput="@(() => pnChange = true)">@userOn.PhoneNumber</InputText>
+                </div>
+                <div class="host_my_info_form" style="        margin-left: 0px;
         width: 82%;
 ">
-                                        <label for="phone">Telefon:</label>
-                                        <input type="text" name="phone" value="" />
-                                    </div>
-                                    <div class="host_my_info_form" style="        margin-left: 0px;
-        width: 82%;
-">
-                                        <label for="email">Email:</label>
-                                        <input type="text" name="email" value="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="        display: flex;
+                    <label for="my_email">Email:</label>
+                    <InputText type="text" name="my_email" @bind-Value="userOn.Email" style="width: 261px;" @oninput="@(() => eChange = true)">@userOn.Email</InputText>
+                </div>
+            </div>
+        </div>
+        <div style="        display: flex;
         flex-direction: column;
         justify-content: space-around;
 ">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">Zůčastním se obřadu</label>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                                    <label class="custom-control-label" for="customSwitch2">Zůčastním se oslavy</label>
-                                </div>
-                                <div>
-                                    <div class="form_sign" style="margin-top:0px;">Strava</div>
-                                    <div class="form-check" style="        display: flex;
+            <div class="custom-control custom-switch">
+
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" checked="@(wp.AttendationOfCeremony == true)" @onchange="@(() => { wp.AttendationOfCeremony = !wp.AttendationOfCeremony; cereChange = true;})">
+                <label class="custom-control-label" for="customSwitch1">Zůčastním se obřadu</label>
+            </div>
+            <div class="custom-control custom-switch">
+
+                <input type="checkbox" class="custom-control-input" id="customSwitch2" checked="@(wp.AttendationOfCelebration==true)" @onchange="@(()=> { wp.AttendationOfCelebration = !wp.AttendationOfCelebration; celeChange = true;})">
+                <label class="custom-control-label" for="customSwitch2">Zůčastním se oslavy</label>
+
+            </div>
+            <div>
+                <div class="form_sign" style="        margin-top: 0px;
+        z-index: 999;
+        position: relative;
+">Strava</div>
+                <div class="form-check" style="        display: flex;
         flex-direction: column;
         border: 1px solid #ddd;
         padding: 15px 15px 15px 45px;
         margin-top: -12px;
-        z-index: -1;
 ">
+                    @foreach (string name in Enum.GetNames(typeof(Domain.Enums.FoodLimits)))
+                    {
+                        string tmpName = name.Replace("_", " ");
+<label>
+    <input type="radio" name="food_select" checked="@(Enum.Parse<Domain.Enums.FoodLimits>(@name) == wp.Food)" @onchange="@(() => { wp.Food = Enum.Parse<Domain.Enums.FoodLimits>(@name); fChange = true;})" />
+    @tmpName
+</label>IncreaseFoodCount();
+}
+                </div>
+            </div>
 
-                                        <div>
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                                Bezlepková dieta
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                            <label class="form-check-label" for="defaultCheck2">
-                                                Vegetariánská strava
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                                            <label class="form-check-label" for="defaultCheck3">
-                                                Bez omezení
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                                    <label class="custom-control-label" for="customSwitch3">Mám se jak dostat z obřadu na oslavu</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="submit_outer" style="margin-top:20px;">
-                            <label>&nbsp;</label>
-                            <input type="submit" value="Uložit" class="submit button" />
-                        </div>
+
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch3" checked="@(wp.Transportation==true)" @onchange="@(() => { wp.Transportation = !wp.Transportation; tChange = true; })">
+                <label class="custom-control-label" for="customSwitch3">Mám se jak dostat z obřadu na oslavu</label>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="submit_outer" style="margin-top:20px;">
+        <label>&nbsp;</label>
+        <input type="submit" value="Uložit" class="submit button" />
+    </div>
+</EditForm>}
+        }
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+
+
+
+@code { private Wedding weddingModel = new Wedding();
+    private AppUser userOn = new AppUser();
+    private int userOnId;
+
+    private List<Wedding> weddingLoad = new List<Wedding>();
+    private List<WeddingParticipant> allHostedInfoForm = new List<WeddingParticipant>();
+
+    private int weddingCount = 1;
+    private int weddingNum = -1;
+    [Parameter]
+    public string Info_form { get; set; }
+
+    private bool WeddingInfoPane { get; set; }
+
+    private List<WeddingGift> weddingGifts = new List<WeddingGift>();
+    private int weddingGiftCount = 1;
+
+    private WeddingParticipant myInfoModel = new WeddingParticipant();
+    private string connectedPersons;
+    private int foodCount = 0;
+    private Address myAddress = new Address();
+    private bool cpChange = false; private bool eChange = false; private bool pnChange = false; private bool aChange = false; private bool cereChange = false; private bool celeChange = false;
+    private bool tChange = false; private bool fChange = false;
+
+
+
+
+
+
+
+    private void IncreaseCount()
+    {
+        weddingCount++;
+    }
+
+
+    private void IncreaseFoodCount()
+    {
+        foodCount++;
+    }
+
+    private void IncreaseGiftCount()
+    {
+        weddingGiftCount++;
+    }
+
+
+
+
+
+    private void Add()
+    {
+        if (add)
+        {
+            labelAdd = "Přidat";
+            add = false;
+        }
+        else
+        {
+            labelAdd = "Schovat";
+            add = true;
+        }
+    }
+
+
+
+    private void WeddingHostedSelect(int id)
+    {
+        weddingSelect.hostSelectedWeddingId = id;
+    }
+
+
+
+
+
+
+
+
+
+
+    private void HandleValidSubmit5(WeddingParticipant wp)
+    {
+        if (userOn.AddressId == -1)
+        {
+            addressRepos.Add(myAddress);
+            userOn.AddressId = addressRepos.GetLastID();
+            appUserRepos.Update(userOn, "AddressId");
+        }
+        else if (aChange)
+        {
+            addressRepos.Update(myAddress, "City");
+            addressRepos.Update(myAddress, "Street");
+            addressRepos.Update(myAddress, "Number");
+            addressRepos.Update(myAddress, "PostCode");
+        }
+        if (eChange) appUserRepos.Update(userOn, "Email");
+        if (pnChange) appUserRepos.Update(userOn, "PhoneNumber");
+        if (tChange) weddingParticipant.Update(wp, "Transportation");
+        if (celeChange) weddingParticipant.Update(wp, "AttendationOfCelebration");
+        if (cereChange) weddingParticipant.Update(wp, "AttendationOfCeremony");
+        if (fChange) weddingParticipant.Update(wp, "Food");
+        if (cpChange) weddingParticipant.Update(wp, "ConnectedPersons");
+
+        aChange = false; eChange = false; pnChange = false; tChange = false; celeChange = false; cereChange = false; fChange = false; cpChange = false;
+        FillInfo();
+    }
+
+    private void RegisterGift(int giftId)
+    {
+        giftService.RegisterGift(giftId, userOnId);
+        FillHostedGifts();
+    }
+
+    private void UnregisterGift(int giftId)
+    {
+        giftService.UnregisterGift(giftId, userOnId);
+        FillHostedGifts();
+    }
+
+    private void FillGifts()
+    {
+        allWeddingGifts.Clear();
+        for (int i = 0; i < weddingOrganisedLoad.Count; i++)
+        {
+            allWeddingGifts.Add(giftRepos.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+        }
+    }
+    private void FillItinerary()
+    {
+        allWeddingItineraryItems.Clear();
+        for (int i = 0; i < weddingOrganisedLoad.Count; i++)
+        {
+            allWeddingItineraryItems.Add(itiRepos.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+        }
+    }
+    private void FillHostedWeddings()
+    {
+        weddingLoad.Clear();
+        var participants = weddingParticipant.GetAll().Where(x => x.AppUserId == userOnId);
+        foreach (WeddingParticipant wp in participants)
+        {
+            if (wp.WeddingsRole == Domain.Enums.GuestRole.Guest)
+            {
+                if (wp.Verificated) weddingLoad.Add(ws.GetWedding(wp.WeddingId));
+            }
+        }
+    }
+    private void FillOrganisedWeddings()
+    {
+        weddingOrganisedLoad.Clear();
+        var participants = weddingParticipant.GetAll().Where(x => x.AppUserId == userOnId);
+        foreach (WeddingParticipant wp in participants)
+        {
+            if (wp.WeddingsRole == Domain.Enums.GuestRole.Organiser)
+            {
+                weddingOrganisedLoad.Add(ws.GetWedding(wp.WeddingId));
+            }
+        }
+    }
+    private void FillHostedGifts()
+    {
+        allHostedGifts.Clear();
+        for (int i = 0; i < weddingLoad.Count; i++)
+        {
+            allHostedGifts.Add(giftRepos.GetAll().Where(x => x.WeddingId == weddingLoad[i].Id).ToList());
+        }
+    }
+    private void FillGuests()
+    {
+        allWeddingGuests.Clear();
+        for (int i = 0; i < weddingOrganisedLoad.Count; i++)
+        {
+            allWeddingGuests.Add(weddingParticipant.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+        }
+
+    }
+    private void FillInfo()
+    {
+        allHostedInfoForm.Clear();
+        for (int i = 0; i < weddingLoad.Count; i++)
+        {
+            allHostedInfoForm.Add(weddingParticipant.GetAll().First(x => x.WeddingId == weddingLoad[i].Id && x.AppUserId == userOnId));
+        }
+    }
+
+
+    //wedding gifts
+    private WeddingGift giftModel = new WeddingGift();
+    private string giftCost;
+    private List<WeddingGift> selectedGifts = new List<WeddingGift>();
+    private List<List<WeddingGift>> allWeddingGifts = new List<List<WeddingGift>>();
+    private List<List<WeddingGift>> allHostedGifts = new List<List<WeddingGift>>();
+    private List<bool> wgNChange = new List<bool>();
+    private List<bool> wgPChange = new List<bool>();
+    private List<bool> wgDChange = new List<bool>();
+    private List<bool> wgLChange = new List<bool>();
+
+    private List<string> labelGift = new List<string>();
+    private bool add = false;
+    private int OrganisedgiftCount = -1;
+    private string labelAdd = "Přidat";
+
+
+
+    private void HandleValidSubmit3()
+    {
+        giftModel.WeddingId = weddingSelect.organisedSelectedWeddingId;
+        giftModel.IsRegistred = false;
+        if (giftModel.Description == null) giftModel.Description = "";
+        if (giftModel.Link == null) giftModel.Link = "";
+        giftService.AddGiftToList(giftModel);
+        FillGifts();
+    }
+
+    private void HandleValidSubmit3Edit(WeddingGift gift, int i)
+    {
+        if (wgNChange[i]) giftRepos.Update(gift, "Name");
+        if (wgPChange[i]) giftRepos.Update(gift, "Price");
+        if (wgDChange[i]) giftRepos.Update(gift, "Description");
+        if (wgLChange[i]) giftRepos.Update(gift, "Link");
+        wgNChange[i] = false; wgPChange[i] = false; wgDChange[i] = false; wgLChange[i] = false;
+        FillGifts();
+    }
+
+    private void Delete(int id)
+    {
+        giftService.RemoveGiftFromList(id);
+        FillGifts();
+    }
+
+
+    private void LabelGiftChange(int id)
+    {
+        var gift = selectedGifts.First(x => x.Id == id);
+        int i = selectedGifts.IndexOf(gift);
+        if (labelGift[i] == "Upravit")
+        {
+            labelGift[i] = "Schovat";
+        }
+        else if (labelGift[i] == "Schovat")
+        {
+            labelGift[i] = "Upravit";
+        }
+    }
+
+
+    //wedding info
+    private List<bool> brNaChange = new List<bool>();
+    private List<bool> grNaChange = new List<bool>();
+    private List<bool> weNaChange = new List<bool>();
+    private List<bool> cereAdChange = new List<bool>();
+    private List<bool> celeAdChange = new List<bool>();
+    private List<bool> cereDateChange = new List<bool>();
+    private List<bool> celeDateChange = new List<bool>();
+    private List<bool> wCapChange = new List<bool>();
+
+    private List<Address> ceremonyAddress = new List<Address>();
+    private List<WeddingDateTime.DateTimeModel> ceremonyDateTime = new List<WeddingDateTime.DateTimeModel>();
+    private List<Address> celebrationAddress = new List<Address>();
+    private List<WeddingDateTime.DateTimeModel> celebrationDateTime = new List<WeddingDateTime.DateTimeModel>();
+
+    private List<string> labelWedding = new List<string>();
+    private List<Wedding> weddingOrganisedLoad = new List<Wedding>();
+
+    private void LabelWeddingChange(int i)
+    {
+        if (labelWedding[i] == "Upravit")
+        {
+            labelWedding[i] = "Schovat";
+        }
+        else if (labelWedding[i] == "Schovat")
+        {
+            labelWedding[i] = "Upravit";
+        }
+    }
+
+    private void HandleValidSubmit(int i)
+    {
+
+        if (brNaChange[i]) wRepos.Update(weddingOrganisedLoad[i], "BrideName");
+        if (grNaChange[i]) wRepos.Update(weddingOrganisedLoad[i], "GroomsName");
+        if (weNaChange[i]) wRepos.Update(weddingOrganisedLoad[i], "WeddingName");
+        if (cereAdChange[i])
+        {
+            addressRepos.Update(ceremonyAddress[i], "City");
+            addressRepos.Update(ceremonyAddress[i], "Street");
+            addressRepos.Update(ceremonyAddress[i], "Number");
+            addressRepos.Update(ceremonyAddress[i], "PostCode");
+        }
+        if (celeAdChange[i])
+        {
+            addressRepos.Update(celebrationAddress[i], "City");
+            addressRepos.Update(celebrationAddress[i], "Street");
+            addressRepos.Update(celebrationAddress[i], "Number");
+            addressRepos.Update(celebrationAddress[i], "PostCode");
+        }
+        weddingOrganisedLoad[i].CelebrationDateTime = new DateTime(Int32.Parse(celebrationDateTime[i].Year), Int32.Parse(celebrationDateTime[i].Month), Int32.Parse(celebrationDateTime[i].Day), Int32.Parse(celebrationDateTime[i].Hour), Int32.Parse(celebrationDateTime[i].Minute), 0);
+        weddingOrganisedLoad[i].CeremonyDateTime = new DateTime(Int32.Parse(ceremonyDateTime[i].Year), Int32.Parse(ceremonyDateTime[i].Month), Int32.Parse(ceremonyDateTime[i].Day), Int32.Parse(ceremonyDateTime[i].Hour), Int32.Parse(ceremonyDateTime[i].Minute), 0);
+        if (cereDateChange[i]) wRepos.Update(weddingOrganisedLoad[i], "CeremonyDateTime");
+        if (celeDateChange[i]) wRepos.Update(weddingOrganisedLoad[i], "CelebrationDateTime");
+        if (wCapChange[i]) wRepos.Update(weddingOrganisedLoad[i], "GuestCappacity");
+        brNaChange[i] = false; grNaChange[i] = false; weNaChange[i] = false; cereAdChange[i] = false; celeAdChange[i] = false; cereDateChange[i] = false; celeDateChange[i] = false; wCapChange[i] = false;
+        FillOrganisedWeddings();
+    }
+    private void WeddingOrganisedSelect(int id)
+    {
+        weddingSelect.organisedSelectedWeddingId = id;
+    }
+
+    private void DeleteWedding(int id)
+    {
+        wRepos.Remove(id);
+        var pars=weddingParticipant.GetAll().Where(x => x.WeddingId == id);
+        foreach (WeddingParticipant p in pars) {
+            var host = appUserRepos.GetAll().First(x => x.Id == p.AppUserId);
+            if (host.PasswordHash == p.WeddingPassword) appUserRepos.Remove(host.Id);
+            weddingParticipant.Remove(p.Id);
+        }
+        var it =itiRepos.GetAll().Where(x => x.WeddingId == id);
+        foreach (WeddingItineraryItem i in it)itiRepos.Remove(i.Id);
+        var gi = giftRepos.GetAll().Where(x => x.WeddingId == id);
+        foreach (WeddingGift g in gi) giftRepos.Remove(g.Id);
+        FillOrganisedWeddings();
+    }
+
+    //wedding itinerary
+    private WeddingItineraryItem itineraryItem = new WeddingItineraryItem();
+    private List<List<WeddingItineraryItem>> allWeddingItineraryItems = new List<List<WeddingItineraryItem>>();
+    private List<bool> wiNChange = new List<bool>();
+    private List<bool> wiDChange = new List<bool>();
+    private List<bool> stateChange = new List<bool>();
+    private List<string> labelItinerary = new List<string>();
+
+    private void HandleValidSubmit4()
+    {
+        if (itineraryItem.Description == null) itineraryItem.Description = "";
+        itineraryItem.State = Domain.Enums.ItineraryState.NotStarted;
+        itineraryItem.WeddingId = weddingSelect.organisedSelectedWeddingId;
+        itiService.AddItem(itineraryItem);
+        FillItinerary();
+    }
+
+    private void HandleValidSubmit4Edit(WeddingItineraryItem item, int i)
+    {
+        if (wiDChange[i]) itiRepos.Update(item, "Description");
+        if (wiNChange[i]) itiRepos.Update(item, "Name");
+        if (stateChange[i]) itiRepos.Update(item, "State");
+        wiDChange[i] = false; wiNChange[i] = false; stateChange[i] = false;
+        FillItinerary();
+
+    }
+
+    private void DeleteItineraryItem(int id)
+    {
+        itiRepos.Remove(id);
+        FillItinerary();
+    }
+
+
+
+
+    private void LabelItineraryChange(int i)
+    {
+        if (labelItinerary[i] == "Upravit")
+        {
+            labelItinerary[i] = "Schovat";
+        }
+        else if (labelItinerary[i] == "Schovat")
+        {
+            labelItinerary[i] = "Upravit";
+        }
+    }
+
+
+    //wedding guests
+    private AppUser appUserModel = new AppUser();
+    private WeddingParticipant participantModel = new WeddingParticipant();
+    private string weddingPassword;
+    private List<List<WeddingParticipant>> allWeddingGuests = new List<List<WeddingParticipant>>();
+    private void GeneratePassword(MouseEventArgs e)
+    {
+        weddingPassword = guestService.GeneratePasswordForWeddingGuest();
+    }
+
+    private void HandleValidSubmit2()
+    {
+        guestService.AddGuestToWedinng(weddingSelect.organisedSelectedWeddingId, GetGuestId(), appUserService.HashPassword(weddingPassword));
+        FillGuests();
+    }
+
+    private int GetGuestId()
+    {
+        var appUser = appUserRepos.GetAll().FirstOrDefault(x => x.Email == appUserModel.Email);
+        if (appUser == null)
+        {
+            appUserModel.UserName = appUserModel.Email;
+            appUserModel.Role = Domain.Enums.AppUserRole.User;
+            appUserModel.AddressId = -1;
+            appUserModel.PhoneNumber = "";
+            appUserService.Register(appUserModel, weddingPassword);
+            appUser = appUserRepos.GetAll().FirstOrDefault(x => x.Email == appUserModel.Email);
+        }
+
+        return appUser.Id;
+    }
+    private void RemoveGuest(int id)
+    {
+        weddingParticipant.Remove(id);
+        FillGuests();
+    }
+
+
+
+    protected override void OnInitialized()
+    {
+        userOn = appUserRepos.GetAll().FirstOrDefault(x => x.UserName == loginState.username);
+        userOnId = userOn.Id;
+        if (Info_form == "info_form") WeddingInfoPane = true;
+        else WeddingInfoPane = false;
+        var participants = weddingParticipant.GetAll().Where(x => x.AppUserId == userOnId);
+        int i = 1;
+        bool hostFirst = true;
+        bool organisedFirst = true;
+        foreach (WeddingParticipant wp in participants)
+        {
+            if (wp.WeddingsRole == Domain.Enums.GuestRole.Organiser)
+            {
+                if (organisedFirst)
+                {
+                    weddingSelect.organisedSelectedWeddingId = wp.WeddingId;
+                    organisedFirst = false;
+                    FillGifts();
+
+                }
+                weddingOrganisedLoad.Add(ws.GetWedding(wp.WeddingId));
+            }
+            if (wp.WeddingsRole == Domain.Enums.GuestRole.Guest)
+            {
+                if (hostFirst)
+                {
+                    weddingSelect.hostSelectedWeddingId = wp.WeddingId;
+                    hostFirst = false;
+
+                }
+                if (wp.Verificated) weddingLoad.Add(ws.GetWedding(wp.WeddingId));
+            }
+        }
+        connectedPersons = myInfoModel.ConnectedPersons.ToString();
+        if (WeddingInfoPane == true) weddingSelect.hostSelectedWeddingId = weddingLoad.Last().Id;
+
+        if (userOn != null && userOn.AddressId != -1)
+        {
+            myAddress = addressRepos.Get(userOn.AddressId);
+        }
+        for (i = 0; i < weddingOrganisedLoad.Count; i++)
+        {
+            allWeddingGifts.Add(giftRepos.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+            allWeddingItineraryItems.Add(itiRepos.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+            allWeddingGuests.Add(weddingParticipant.GetAll().Where(x => x.WeddingId == weddingOrganisedLoad[i].Id).ToList());
+        }
+        for (int j = 0; j < weddingLoad.Count; j++)
+        {
+            allHostedGifts.Add(giftRepos.GetAll().Where(x => x.WeddingId == weddingLoad[j].Id).ToList());
+            allHostedInfoForm.Add(weddingParticipant.GetAll().First(x => x.WeddingId == weddingLoad[j].Id && x.AppUserId == userOnId));
+        }
+
+
+        base.OnInitialized();
+    } }

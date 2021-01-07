@@ -14,9 +14,9 @@ namespace Infrastructure.Persistence
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = @"dbsys.cs.vsb.cz\STUDENT";   // update me
-            builder.UserID = "ple0049";              // update me
-            builder.Password = "*******";      // update me
-            builder.InitialCatalog = "ple0049";
+            builder.UserID = @"dra0111";              // update me
+            builder.Password = "iMXpTxo0J2";      // update me
+            builder.InitialCatalog = "dra0111";
             return builder;
         }
     }

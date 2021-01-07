@@ -9,7 +9,8 @@ namespace Domain.Interfaces
     public interface IAppUserService
     {
         public bool Register(AppUser user, string password);
+        public bool VerificateWeddingLog(AppUser user, string password);
         public bool LogIn(string userName, string password);
-        public bool LogOut();
+        string HashPassword(string input);
     }
 }

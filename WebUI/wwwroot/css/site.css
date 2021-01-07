@@ -20,6 +20,10 @@ app {
     flex-direction: column;
 }
 
+label {
+    margin-right: 10px;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -136,36 +140,45 @@ app {
     padding: 5px 20px;
     margin:0px;
 }
-.h_a_person, .h_w_select, #host_wedding_select1_active, #host_wedding_select2_active, #host_gift_more1, .h_g_select, #host_gift_more2, #host_gift_more3, #host_gift_more4 {
+.h_a_person, .h_w_select, .h_w_select_active, .h_g_select, .more {
     display: none;
 }
 
-#host_wedding_select1:checked ~ #host_wedding_select1_active,
-#host_wedding_select2:checked ~ #host_wedding_select2_active {
-    display: block;
+
+.h_w_select:checked ~ div:first-of-type {
+    display: block !important;
 }
 
-#arrow4:checked ~ #host_gift_more4,
-#arrow1:checked ~ #host_gift_more1,
-#arrow2:checked ~ #host_gift_more2,
-#arrow3:checked ~ #host_gift_more3 {
+.arrow:checked ~ .more{
     display: flex;
 }
 
-#arrow1:checked ~ #arrow_label1, #arrow2:checked ~ #arrow_label2, #arrow3:checked ~ #arrow_label3, #arrow4:checked ~ #arrow_label4 {
+.arrow:checked ~ label {
     transform: rotate(180deg);
     padding-bottom: 5px;
 }
+.more {
+    order: 3;
+    flex-direction: column;
+    padding: 10px 0px;
+}
+.arrow_label {
+    display: flex;
+    justify-content: center;
+    order: 4;
+    display: flex;
+    flex-direction: column;
+}
 
 
-    #host_wedding_select1_active, #host_wedding_select2_active {
-        color: cornflowerblue;
-        position: relative;
-        top: 180px;
-        left: 50px;
-        margin: -12px 50px -12px 0px;
-        font-weight: bold;
-    }
+.h_w_select_active {
+    color: cornflowerblue;
+    position: relative;
+    top: 180px;
+    left: 50px;
+    margin: -12px 50px -12px 0px;
+    font-weight: bold;
+}
 
 #host_my_info {
     width: -webkit-fill-available;
@@ -267,6 +280,33 @@ app {
         border-top-right-radius: 0;
         border-top-left-radius: .25rem;
         border-bottom-left-radius: .25rem;
+}
+
+.gift_outer {
+    padding: 30px 120px 0px;
+    border-bottom: 1px solid #ddd;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.registredByMe{
+    background-color:lavender;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.button_count {
+    width: 30px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: cornflowerblue;
+    color: white;
 }
 
 .nav-tabs-vertical .nav-item {

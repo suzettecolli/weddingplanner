@@ -23,13 +23,14 @@ namespace Application.Services
         public void ChangeState(WeddingGift gift, ItineraryState newState)
         {
             var item = Repos.WedinngTasks.Get(gift.Id);
-            Repos.WedinngTasks.Update(item);
+            item.State = newState;
+            Repos.WedinngTasks.Update(item, "State");
              
         }
 
         public void RemoveItem(WeddingItineraryItem item)
         {
-            Repos.WedinngTasks.Remove(item);
+            Repos.WedinngTasks.Remove(item.Id);
              
         }
     }

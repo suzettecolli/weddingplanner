@@ -24,7 +24,7 @@ namespace Infrastructure.Persistence.DataMappers
         public abstract TEntity Map(SqlDataReader sqlDataReader);
         public abstract void AddParameters(TEntity entity,  SqlParameterCollection parameterCollection);
 
-        public void Delete(TEntity entity)
+        public void Delete(long Id)
         {
             string sql = $"DELETE FROM {tableName} WHERE ID = @ID;";
             SqlConnectionStringBuilder builder = DBConnector.GetBuilder();
@@ -35,7 +35,7 @@ namespace Infrastructure.Persistence.DataMappers
                 {
                     command.CommandType = CommandType.Text;
                     command.CommandText = sql;
-                    command.Parameters.AddWithValue("@ID", entity.Id);
+                    command.Parameters.AddWithValue("@ID", Id);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -44,7 +44,7 @@ namespace Infrastructure.Persistence.DataMappers
 
         public void Insert(TEntity entity)
         {
-            string sql = $"INSERT INTO {tableName} VALUES ({columns})";
+            string sql = $"INSERT INTO {tableName} VALUES ({columns})"; 
             SqlConnectionStringBuilder builder = DBConnector.GetBuilder();
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
@@ -112,9 +112,32 @@ namespace Infrastructure.Persistence.DataMappers
             return selected;
         }
 
-        public void Update(TEntity entity)
+        public int GetLastID()
         {
-            string sql = $"UPDATE {tableName} SET {columns} WHERE ID = @ID;";
+            int lastId = 0;
+            string sql = $"SELECT MAX(ID) FROM {tableName}";
+            SqlConnectionStringBuilder builder = DBConnector.GetBuilder();
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lastId = reader.GetInt32(0);
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            return lastId;
+        }
+
+        public void Update(TEntity entity, string item)
+        {
+            string sql = $"UPDATE {tableName} SET {item}=@value " + "WHERE ID = @ID"; 
             SqlConnectionStringBuilder builder = DBConnector.GetBuilder();
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
@@ -124,7 +147,7 @@ namespace Infrastructure.Persistence.DataMappers
                     command.CommandType = CommandType.Text;
                     command.CommandText = sql;
                     command.Parameters.AddWithValue("@ID", entity.Id);
-                    AddParameters(entity, command.Parameters);
+                    command.Parameters.AddWithValue("@value", entity.GetType().GetProperty(item).GetValue(entity, null));
                     command.ExecuteNonQuery();
                 }
 

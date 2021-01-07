@@ -22,9 +22,10 @@ namespace Infrastructure.Persistence.Repositories
         {
             this.dataMapper = dataMapper;
         }
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             dataMapper.Insert(entity);
+            return entity;
         }
 
         public TEntity Get(long id)
@@ -37,14 +38,19 @@ namespace Infrastructure.Persistence.Repositories
             return dataMapper.GetAll();
         }
 
-        public void Remove(TEntity entity)
+        public int GetLastID()
         {
-            dataMapper.Delete(entity);
+            return dataMapper.GetLastID();
         }
 
-        public void Update(TEntity entity)
+        public void Remove(long id)
         {
-            dataMapper.Update(entity); //netusim jestli funguje
+            dataMapper.Delete(id);
+        }
+
+        public void Update(TEntity entity, string item)
+        {
+            dataMapper.Update(entity, item);
         }
     }
 }

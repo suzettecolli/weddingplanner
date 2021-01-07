@@ -1,0 +1,244 @@
+﻿@page "/weddingCreate"
+@inject NavigationManager navManager
+@inject IWedinngService weddServ
+@inject IWedinngRepository weddRepos
+@inject IAddressRepository addrRepos
+@inject IWeddingParticipantRepository weddingParticipant
+@inject IAppUserRepository appUserRepos
+@inject WeddingDateTime weddDate
+@inject LoginState loginState
+
+<form method="post" style="display: flex; justify-content: center; margin: 50px 0px;">
+    <EditForm Model="@weddingModel" OnValidSubmit="@HandleValidSubmit">
+        <fieldset>
+            <div class="wedding_form" style="margin-left:0px;">
+                <label for="wedding_name">Název svatby:</label>
+                <InputText type="text" name="wedding_name" @bind-Value="weddingModel.WeddingName" />
+            </div>
+            <div class="wedding_form" style="margin-left:0px;">
+                <label for="bride_name">Jméno a příjmení nevěsty:</label>
+                <InputText type="text" name="bride_name" @bind-Value="weddingModel.BrideName" />
+            </div>
+            <div class="wedding_form" style="margin-left:0px;">
+                <label for="grooms_name">Jméno a příjmení ženicha:</label>
+                <InputText type="text" name="grooms_name" @bind-Value="weddingModel.GroomsName" />
+            </div>
+            <div class="sign_wedding_form">Adresa obřadu</div>
+            <div class="wedding_form">
+                <label for="ceremony_city">Město:</label>
+                <InputText type="text" name="ceremony_city" @bind-Value="ceremonyAddress.City" />
+            </div>
+            <div class="wedding_form">
+                <label for="ceremony_street">Ulice:</label>
+                <InputText type="text" name="ceremony_street" @bind-Value="ceremonyAddress.Street" />
+            </div>
+            <div class="wedding_form">
+                <label for="ceremony_number">Číslo popisné:</label>
+                <InputText type="text" name="ceremony_number" @bind-Value="ceremonyAddress.Number" />
+            </div>
+            <div class="wedding_form">
+                <label for="ceremony_postcode">PSČ:</label>
+                <InputText type="text" name="ceremony_postcode" @bind-Value="ceremonyAddress.PostCode" />
+            </div>
+            <div class="sign_wedding_form">Adresa oslavy</div>
+            <div class="wedding_form">
+                <label for="celebration_city">Město:</label>
+                <InputText type="text" name="celebration_city" @bind-Value="celebrationAddress.City" />
+            </div>
+            <div class="wedding_form">
+                <label for="celebration_street">Ulice:</label>
+                <InputText type="text" name="celebration_street" @bind-Value="celebrationAddress.Street" />
+            </div>
+            <div class="wedding_form">
+                <label for="celebration_number">Číslo popisné:</label>
+                <InputText type="text" name="celebration_number" @bind-Value="celebrationAddress.Number" />
+            </div>
+            <div class="wedding_form">
+                <label for="celebration_postcode">PSČ:</label>
+                <InputText type="text" name="celebration_postcode" @bind-Value="celebrationAddress.PostCode" />
+            </div>
+            <div class="sign_wedding_form">Datum a čas obřadu</div>
+            <div style="        display: flex;
+        margin: 0px 0px 7px 60px;
+">
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="ceremony_day" class="label_for_time">Den</label>
+                    <select class="form-control" id="ceremony_day" @bind="weddDate.ceremonyDateTime.Day">
+                        @for (int i = 1; i < 32; i++)
+                        {
+                            <option>@i</option>
+}
+                    </select>
+                </div>
+                <div style="        width: 130px;
+        padding: 0px 5px;
+">
+                    <label for="ceremony_month" class="label_for_time">Měsíc</label>
+                    <select class="form-control" id="ceremony_month" @bind="weddDate.ceremonyDateTime.Month">
+                        @foreach (var m in weddDate.months)
+                        {
+                            <option value="@m.Number">@m.Name</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 100px;
+        padding: 0px 5px;
+">
+                    <label for="ceremony_year" class="label_for_time">Rok</label>
+                    <select class="form-control" id="ceremony_year" @bind="weddDate.ceremonyDateTime.Year">
+                        @for (int i = 2020; i < 2041; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="ceremony_hour" class="label_for_time">Hodina</label>
+                    <select class="form-control" id="ceremony_hour" @bind="weddDate.ceremonyDateTime.Hour">
+                        @for (int i = 0; i < 24; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="ceremony_minute" class="label_for_time">Minuta</label>
+                    <select class="form-control" id="ceremony_minute" @bind="weddDate.ceremonyDateTime.Minute">
+                        @for (int i = 0; i < 60; i += 5)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="sign_wedding_form">Datum a čas oslavy</div>
+            <div style="        display: flex;
+        margin: 0px 0px 7px 60px;
+">
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="celebration_day" class="label_for_time">Den</label>
+                    <select class="form-control" id="celebration_day" @bind="@weddDate.celebrationDateTime.Day">
+                        @for (int i = 1; i < 32; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 130px;
+        padding: 0px 5px;
+">
+                    <label for="celebration_month" class="label_for_time">Měsíc</label>
+                    <select class="form-control" id="celebration_month" @bind="@weddDate.celebrationDateTime.Month">
+                        @foreach (var m in weddDate.months)
+                        {
+                            <option value="@m.Number">@m.Name</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 100px;
+        padding: 0px 5px;
+">
+                    <label for="celebration_year" class="label_for_time">Rok</label>
+                    <select class="form-control" id="celebration_year" @bind="@weddDate.celebrationDateTime.Year">
+                        @for (int i = 2020; i < 2041; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="celebration_hour" class="label_for_time">Hodina</label>
+                    <select class="form-control" id="celebration_hour" @bind="@weddDate.celebrationDateTime.Hour">
+                        @for (int i = 0; i < 24; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+                <div style="        width: 80px;
+        padding: 0px 5px;
+">
+                    <label for="celebration_minute" class="label_for_time">Minuta</label>
+                    <select class="form-control" id="celebration_minute" @bind="@weddDate.celebrationDateTime.Minute">
+                        @for (int i = 0; i < 60; i += 5)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="wedding_form" style="margin-left: 0px;">
+                <label for="wedding_capacity">Kapacita hostů:</label>
+                <InputText type="text" name="wedding-capacity" @bind-Value="capacity" />
+            </div>
+            <div class="submit_outer">
+                <label>&nbsp;</label>
+                <input type="submit" value="Založit svatbu" class="submit button" />
+            </div>
+
+        </fieldset>
+    </EditForm>
+</form>
+
+
+@code {
+    private Wedding weddingModel = new Wedding();
+    private Address celebrationAddress = new Address();
+    private Address ceremonyAddress = new Address();
+    private string capacity = "0";
+    private int weddingId = 0;
+    private AppUser userOn = new AppUser();
+    private WeddingParticipant wp = new WeddingParticipant();
+
+
+    private void HandleValidSubmit()
+    {
+        var ceremony = addrRepos.Add(ceremonyAddress);
+        var celebration = addrRepos.Add(celebrationAddress);
+        weddingModel.CeremonyAddressId = ceremony.Id;
+        weddingModel.CelebrationAddressId = celebration.Id;
+
+        weddingModel.CelebrationDateTime = new DateTime(Int32.Parse(weddDate.celebrationDateTime.Year), Int32.Parse(weddDate.celebrationDateTime.Month), Int32.Parse(weddDate.celebrationDateTime.Day), Int32.Parse(weddDate.celebrationDateTime.Hour), Int32.Parse(weddDate.celebrationDateTime.Minute), 0);
+        weddingModel.CeremonyDateTime = new DateTime(Int32.Parse(weddDate.ceremonyDateTime.Year), Int32.Parse(weddDate.celebrationDateTime.Month), Int32.Parse(weddDate.ceremonyDateTime.Day), Int32.Parse(weddDate.ceremonyDateTime.Hour), Int32.Parse(weddDate.ceremonyDateTime.Minute), 0);
+        weddingModel.GuestCappacity = Int32.Parse(capacity);
+        weddingModel.OrganiserId = -1;
+        weddServ.AddWedding(weddingModel);
+        weddingId = weddServ.GetLastWeddingId();
+        wp.Transportation = true;
+        wp.WeddingId= weddingId;
+        wp.WeddingPassword = "";
+        wp.WeddingsRole = Domain.Enums.GuestRole.Organiser;
+        wp.Food = Domain.Enums.FoodLimits.Bez_omezení;
+        wp.ConnectedPersons =1;
+        wp.AttendationOfCeremony = true;
+        wp.AttendationOfCelebration = true;
+        wp.AppUserId = userOn.Id;
+        weddingParticipant.Add(wp);
+        int wpId = weddingParticipant.GetLastID();
+        weddingModel.OrganiserId = wpId;
+        weddRepos.Update(weddingModel,"OrganiserId");
+        navManager.NavigateTo("/counter");
+    }
+
+
+
+
+
+    protected override void OnInitialized()
+    {
+        userOn = appUserRepos.GetAll().FirstOrDefault(x=>x.UserName==loginState.username);
+
+        base.OnInitialized();
+
+    }
+}

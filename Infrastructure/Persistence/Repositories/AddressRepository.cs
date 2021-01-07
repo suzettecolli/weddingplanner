@@ -13,7 +13,8 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class AddressRepository : IAddressRepository
     {
-        public void Add(Address entity)
+        private int lastId=0;
+        public Address Add(Address entity)
         {
             var gw = new AddressRowDataGateway()
             {
@@ -23,7 +24,9 @@ namespace Infrastructure.Persistence.Repositories
                 PostCode = entity.PostCode,
                 Street = entity.Street
             };
-            gw.Add();
+            gw=gw.Add();
+            lastId = gw.Id;
+            return (Address)gw;
         }
 
         public Address Get(long id)
@@ -36,14 +39,19 @@ namespace Infrastructure.Persistence.Repositories
             return AddressRowDataGateway.GetAll().Select(x=> (Address)x).ToList();
         }
 
-        public void Remove(Address entity)
+        public int GetLastID()
         {
-            new AddressRowDataGateway(entity).Remove();
+            return this.lastId;
         }
 
-        public void Update(Address entity)
+        public void Remove(long addressId)
         {
-            new AddressRowDataGateway(entity).Update();
+            new AddressRowDataGateway().Remove(addressId);
+        }
+
+        public void Update(Address entity, string item)
+        {
+            new AddressRowDataGateway(entity).Update(entity.Id, item);
         }
     }
 }

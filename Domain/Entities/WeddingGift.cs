@@ -1,6 +1,8 @@
-﻿namespace Domain.Entities
+﻿using System.Collections;
+
+namespace Domain.Entities
 {
-    public class WeddingGift : Entity
+    public class WeddingGift : Entity, IEnumerable
     {
         public int WeddingId { get; set; }
         public string Name { get; set; }
@@ -12,5 +14,9 @@
         /// Registred to wedding guest with userID
         /// </summary>
         public int UserId { get; set; }
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)this;
+        }
     }
 }
